@@ -51,6 +51,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             return new RedirectResponse($this->router->generate($route));
         } else {
             $route = $session->get('lastPath');
+            //var_dump($request->getSession()->get('_security.main.target_path'));
         }
 
         if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
