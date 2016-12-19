@@ -24,12 +24,30 @@
 
             <legend>{{ "registration.legend.2" | trans }}</legend>
             <div class="row">
-                <div class="form-group col-sm-6">
-                    {{ form_widget(form.firstname, {'attr' : {'class' : 'form-control' , 'placeholder' : 'registration.firstname'|trans}}) }}
+                <div class="form-group col-sm-3 ">
+                    {{ form_label(form.gender, label|default('Civilité'|trans), { 'label_attr': { 'class': '' } }) }}
+                </div>
+                <div class="form-group col-sm-9 ">
+                  
+                    {{ form_widget(form.gender, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.phone'|trans}}) }}                 
+                    {{ form_errors(form.gender) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-3 ">
+                    {{ form_label(form.firstname, label|default('registration.firstname'|trans), { 'label_attr': { 'class': '' } }) }}
+                </div>
+                <div class="form-group col-sm-9 ">
+                    {{ form_widget(form.firstname, {'attr' : {'class' : 'form-control', 'placeholder' : ''|trans}}) }}
                     {{ form_errors(form.firstname) }}
                 </div>
-                <div class="form-group col-sm-6">
-                    {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.lastname'|trans}}) }}
+            </div> 
+            <div class="row">
+                <div class="form-group col-sm-3 ">
+                    {{ form_label(form.lastname, label|default('registration.lastname'|trans), { 'label_attr': { 'class': '' } }) }}
+                </div>
+                <div class="form-group col-sm-9 ">
+                    {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control', 'placeholder' : ''|trans}}) }}
                     {{ form_errors(form.lastname) }}
                 </div>
             </div>

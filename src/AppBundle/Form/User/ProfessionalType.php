@@ -23,6 +23,7 @@ class ProfessionalType extends RegistrationType {
                 ->add('nomEntreprise')
                 ->add('adresse')
                 ->add('ifu')
+                ->add('rcc')
         ;
     }
 

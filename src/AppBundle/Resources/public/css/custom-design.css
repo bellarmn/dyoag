@@ -317,3 +317,7 @@ form .input-group-addon {
 form .row {
     margin-top: 0;
 }
+label.required::after {
+    color: red;
+    content: " *";
+}

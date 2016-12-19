@@ -15,7 +15,11 @@
                             </h6>
                             <i class="fa fa-money" aria-hidden="true"></i> <span class="price sale">{{ entity.prixUnit }} FCFA / {{ entity.measure }}</span>
                             <br>
-                            <span class="stock">{{ entity.quantite }} {{ entity.measure }}s {{ (type == 'vente') ? 'en stock.' : 'à founir.' }}  </span>
+                            <i class="fa fa-database" aria-hidden="true"></i><span class="stock"> {{ entity.quantite }} {{ entity.measure }}s {{ (type == 'vente') ? 'en stock.' : 'à founir.' }}  </span>
+                            <br>
+                            <span>
+                                <i class="fa fa-home" aria-hidden="true"></i> {{ entity.lieu ~ "(" ~ entity.district.city ~ ")"}}
+                            </span>
                             <br>
                             <span>
                                 <i class="fa fa-home" aria-hidden="true"></i> {{ entity.district }}

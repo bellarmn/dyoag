@@ -20,6 +20,14 @@ class RegistrationType extends AbstractType {
         parent::buildForm($builder, $options);
 
         $builder
+                ->add('gender', ChoiceType::class, array(
+                    'choices' => array(
+                        'M.' => 'M',
+                        'Mme' => 'F',
+                    ),
+                    'placeholder' => 'Civilité',
+                    'required' => true
+                ))
                 ->add('firstname', TextType::class, array(
                     'attr' => array(
                         'placeholder' => 'registration.firstname',

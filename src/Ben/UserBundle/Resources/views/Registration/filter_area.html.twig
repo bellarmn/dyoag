@@ -9,25 +9,52 @@
 {% do form.phone.setRendered %}
 {% do form.user_category.setRendered %}
 {% do form.fields.setRendered %}
+{% do form.gender.setRendered %}
 
 {% if(form.nomEntreprise is defined) %}
     <legend>{{ "registration.legend.3" | trans }}</legend>
-    <div class="form-group">
-        {{ form_widget(form.nomEntreprise, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.nomEntreprise'|trans}}) }}
-        {{ form_errors(form.nomEntreprise) }}
+
+    <div class="row">
+        <div class="form-group col-sm-3">
+            {{ form_label(form.nomEntreprise, label|default('registration.nomEntreprise'|trans), { 'label_attr': { 'class': '' } }) }}
+        </div>
+        <div class="form-group col-sm-9">
+            {{ form_widget(form.nomEntreprise, {'attr' : {'class' : 'form-control'}}) }}
+            {{ form_errors(form.nomEntreprise) }}
+        </div>
     </div>
 {% endif %}
 {% if(form.adresse is defined) %}
-    <div class="form-group">
-        {{ form_widget(form.adresse, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.adresse'|trans}}) }}
-        {{ form_errors(form.adresse) }}
+    <div class="row">
+        <div class="form-group col-sm-3">
+            {{ form_label(form.adresse, label|default('registration.adresse'|trans), { 'label_attr': { 'class': '' } }) }}
+        </div>
+        <div class="form-group col-sm-9">
+            {{ form_widget(form.adresse, {'attr' : {'class' : 'form-control'}}) }}
+            {{ form_errors(form.adresse) }}
+        </div>
     </div>
 {% endif %}
 {% if(form.ifu is defined) %}
-    <div class="form-group">
-        {{ form_widget(form.ifu, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.ifu'|trans}}) }}
-        {{ form_errors(form.ifu) }}
+    <div class="row">
+        <div class="form-group col-sm-3">
+            {{ form_label(form.ifu, label|default('registration.ifu'|trans), { 'label_attr': { 'class': '' } }) }}
+        </div>
+        <div class="form-group col-sm-9">
+            {{ form_widget(form.ifu, {'attr' : {'class' : 'form-control'}}) }}
+            {{ form_errors(form.ifu) }}
+        </div>
     </div>
 {% endif %}
-
+{% if(form.rcc is defined) %}
+    <div class="row">
+        <div class="form-group col-sm-3">
+            {{ form_label(form.rcc, label|default('registration.rcc'|trans), { 'label_attr': { 'class': '' } }) }}
+        </div>
+        <div class="form-group col-sm-9">
+            {{ form_widget(form.rcc, {'attr' : {'class' : 'form-control'}}) }}
+            {{ form_errors(form.rcc) }}
+        </div>
+    </div>
+{% endif %}
 {{ form_rest(form) }}

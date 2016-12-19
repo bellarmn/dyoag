@@ -19,7 +19,14 @@ class Professional extends User {
      * @Assert\Length(max="13")
      */
     private $ifu;
-
+    
+    /**
+     * @var string $rcc
+     *
+     * @ORM\Column(name="professional_rcc", type="string" , nullable=false)
+     */
+    private $rcc;
+    
     /**
      * @var string  Adresse phyique de votre entreprise(Rue, Numero,etc...)
      *
@@ -102,4 +109,24 @@ class Professional extends User {
         return $this->adresse;
     }
 
+    /**
+     * Get rcc
+     *
+     * @return string
+     */
+    public function getRcc() {
+        return $this->rcc;
+    }
+    /**
+     * Set rcc
+     *
+     * @param string $rcc
+     *
+     * @return Professional
+     */
+    public function setRcc($rcc) {
+        $this->rcc = $rcc;
+
+        return $this;
+    }
 }

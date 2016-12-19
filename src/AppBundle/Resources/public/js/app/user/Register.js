@@ -26,6 +26,7 @@ require(['jquery.ui', 'select2'], function () {
             $('.form-group>select').select2({
                 theme: "bootstrap"
             });
+            $('#ben_user_registration_profil').trigger('change');
         }
 
         Register.prototype = {

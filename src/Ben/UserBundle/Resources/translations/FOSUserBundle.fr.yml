@@ -87,9 +87,12 @@ registration:
     firstname: Prénom
     lastname: Nom
     phone: Téléphone
-    nomEntreprise: Nom de votre entreprise ( = celui de votre registre de commerce)
-    adresse: Adresse physique de votre entreprise(Rue, Numero,etc...)
+    nomEntreprise: Nom de votre entreprise
+    # ( = celui de votre registre de commerce)
+    adresse: Adresse physique de votre entreprise
+    #(Rue, Numero,etc...)
     ifu: Numéro IFU
+    rcc: Régistre de commerce
     check_email: Un e-mail a été envoyé à l'adresse %email%. Il contient un lien d'activation sur lequel il vous faudra cliquer afin d'activer votre compte.
     confirmed: Félicitations %username%, votre compte est maintenant activé.
     back: Retour à la page d'origine.
