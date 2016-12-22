@@ -19,10 +19,12 @@
     {% trans_default_domain 'FOSUserBundle' %}
     <div class="col-md-6 col-md-offset-3 btn-shadow inset-sm-min bg-white round-large">
         {% for flash_message in app.session.flashBag.get('info') %}
-            <div class="alert alert-info alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>Info!</strong> {{ flash_message }}
-            </div>
+            {% if  loop.first %}
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Info!</strong> {{ flash_message }}
+                </div>
+            {% endif %}
         {% endfor %}
         <h5 class="text-center">Connexion ou <a class="btn btn-info btn-sm round-xl offset-2" href="{{ path("fos_user_registration_register") }}">Inscription</a></h5>
         <form class="row label-insets" action="{{ path("fos_user_security_check") }}" method="post" autocomplete="off">

@@ -31,8 +31,10 @@
                         <address>
                             <dl class="info-list offset-5">
                                 <dt>Par</dt>
-                                <dd> {{ entity.user.firstName }} &nbsp; {{ entity.user.lastName|first|upper }}. </dd>
-                                <a role="button" id="show_contact" class="btn btn-default round-xl btn-sm" href="#">Contatez-le</a>
+                                <dd> {{ entity.user.firstName }} &nbsp; {{ entity.user.lastName|first|upper }}.
+                                    <a role="button" id="" class="btn btn-default round-xl btn-sm" href="#">Contatez-le</a>
+                                </dd>
+
                             </dl>
                         </address>
                         <button  type="submit" id="order" class="btn btn-primary round-xl btn-sm  offset-6">
@@ -45,21 +47,21 @@
                 <div class="col-xs-12 offset-2">
                     <!--Tabs-->
                     <ul class="nav nav-tabs text-center product" role="tablist" id="myTabs">
-                        <li class="round-large text-dark-variant-3" role="presentation">
+                        <li class="round-large text-dark-variant-3 active" role="presentation">
                             <a class="round-large" role="tab" aria-controls="tab0" href="#tab0">Description</a>
                         </li>
-                        <li class="round-large text-dark-variant-3 active" role="presentation">
+                        <li class="round-large text-dark-variant-3" role="presentation">
                             <a class="round-large" role="tab" aria-controls="tab1" href="#tab1">Information complémentaire</a>
                         </li>
                     </ul>
                     <!--Tab panes-->
                     <div class="tab-content text-sm-left">
-                        <div class="tab-pane fade" id="tab0" role="tabpanel">
+                        <div class="tab-pane fade  active in" id="tab0" role="tabpanel">
                             <p class="lead text-base">
                                 {{ entity.description }}
                             </p>
                         </div>
-                        <div class="tab-pane fade active in" id="tab1" role="tabpanel">
+                        <div class="tab-pane fade" id="tab1" role="tabpanel">
                             <!--Table-striped-->
                             <table class="table table-striped-odd table-mobile mobile-primary">
                                 <colgroup>

@@ -30,7 +30,7 @@ class RedirectionListener {
      */
     public function onKernelRequest(GetResponseEvent $event) {
         $request = $event->getRequest();
-        $list_route = array('order_new', 'vente_show', 'demand_show', 'vente_new', 'demand_new', 'supply_new', 'market_index');
+        $list_route = array('order_new', 'vente_show', 'demand_show', 'vente_new', 'demand_new', 'supply_new', 'dashboard_index');
         $route = $request->attributes->get('_route');
         $route_params = $request->attributes->get('_route_params');
 

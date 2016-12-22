@@ -134,7 +134,7 @@ class Vente {
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $canceled = false;
-
+//transport = false; limit = false // delai; Conditionnement
     /**
      * @ORM\ManyToOne(targetEntity="Product", cascade={"persist"}, inversedBy="ventes")
      */
