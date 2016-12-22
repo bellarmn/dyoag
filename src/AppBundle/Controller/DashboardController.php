@@ -22,20 +22,21 @@ use AppBundle\Entity\Product;
  */
 class DashboardController extends Controller {
 
-     /**
+    /**
      * View of dashboard.
      *
      * @Route("/", name="dashboard_index")
      * @Method("GET")
      */
     public function dashboard_indexAction(Request $request) {
-        
-        return $this->render('dashboard/layout.html.twig');
-        
+
+        return $this->render('dashboard/layout.html.twig', array(
+                    'notifications' => $this->get('mgilet.notification')->getUserNotifications($this->getUser())
+        ));
     }
-    
+
     //les actions pour les offres
-    
+
     /**
      * View of dashboard.
      *
@@ -58,10 +59,11 @@ class DashboardController extends Controller {
 
         return $this->render('dashboard/offre/dashboard_mesoffres.html.twig', array(
                     'ventes' => $ventes, 'brouillons' => $CountBrouillons, 'expires' => $CountExpires,
-                    'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille
+                    'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille,
+                 
         ));
     }
-    
+
     /**
      * View of dashboard.
      *
@@ -242,6 +244,7 @@ class DashboardController extends Controller {
             $vente->setCanceled(true);
             $vente->setCanceledReason($request->get('canceledReason'));
             $em->flush();
+
             return $this->redirectToRoute('dashboard_mesoffres');
         }
     }
@@ -262,6 +265,7 @@ class DashboardController extends Controller {
             $vente->setCanceled(false);
             $vente->setCanceledReason(null);
             $em->flush();
+
             return $this->redirectToRoute('dashboard_mesoffres');
         }
     }
@@ -282,6 +286,13 @@ class DashboardController extends Controller {
             $vente->setCanceled(false);
             $vente->setCanceledReason(null);
             $em->flush();
+            //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            foreach ($users as $user) {
+                if ($user->getNotificationVente()) {
+                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication d\'offre ', 'Une offre a été Publiée depuis BenAgro !!! ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
+                }
+            }
             return $this->redirectToRoute('dashboard_mesoffres');
         }
     }
@@ -303,6 +314,13 @@ class DashboardController extends Controller {
             $vente->getDateLimit()->add(new \DateInterval('P30D'));
             $vente->setPublished(true);
             $em->flush();
+            //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            foreach ($users as $user) {
+                if ($user->getNotificationVente()) {
+                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Relance d\'offre ', 'Une offre expirée a été relancée depuis BenAgro !!! ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
+                }
+            }
             return $this->redirectToRoute('dashboard_mesoffres');
         }
     }
@@ -319,7 +337,7 @@ class DashboardController extends Controller {
         $vente = $em->getRepository('AppBundle:Vente')->find($request->get('id'));
 
         return $this->render('dashboard/offre/dashboard_commandesoffre.html.twig', array(
-                    'vente' => $vente,
+                    'vente' => $vente, 'notifications' => $this->get('mgilet.notification')->getUserNotifications($this->getUser())
         ));
     }
 
@@ -337,12 +355,20 @@ class DashboardController extends Controller {
             $cmde->setAcceptedAt(new \DateTime());
             $cmde->setAccepted(true);
             $em->flush();
-            return $this->redirectToRoute('dashboard_commandesoffre',array(
-                    'id' => $cmde->getVente()->getId(),
+            //notification interne de l'action
+//            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+//            foreach ($users as $user) {
+            if ($user->getNotificationOrder()) {
+                $this->sendNotification($this->getUser(), $cmde->getVente()->getUser(), 'BenAgro - Commande approuvée ', 'Votre commande a été approuvée par votre fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
+                $this->sendNotification($cmde->getVente()->getUser(), $this->getUser(), 'BenAgro - Commande approuvée ', 'Votre commande a été approuvée par votre fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
+            }
+//            }
+            return $this->redirectToRoute('dashboard_commandesoffre', array(
+                        'id' => $cmde->getVente()->getId(),
             ));
         }
     }
-    
+
     //les actions de demandes   
     /**
      * View of dashboard.
@@ -351,7 +377,7 @@ class DashboardController extends Controller {
      * @Method("GET")
      */
     public function mesdemandesAction(Request $request) {
-         $userId = $this->getUser()->getId();
+        $userId = $this->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
 
         $demandes = $em->getRepository('AppBundle:Demand')
@@ -366,10 +392,11 @@ class DashboardController extends Controller {
 
         return $this->render('dashboard/demand/dashboard_mesdemandes.html.twig', array(
                     'demandes' => $demandes, 'brouillons' => $CountBrouillons, 'expires' => $CountExpires,
-                    'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille
+                    'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille,
+                 
         ));
     }
-    
+
     /**
      * View of dashboard.
      *
@@ -377,7 +404,7 @@ class DashboardController extends Controller {
      * @Method("GET")
      */
     public function mesdemandesPubliesAction(Request $request) {
-         $userId = $this->getUser()->getId();
+        $userId = $this->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
 
         $demandes = $em->getRepository('AppBundle:Demand')
@@ -395,7 +422,7 @@ class DashboardController extends Controller {
                     'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille
         ));
     }
-    
+
     /**
      * View of dashboard.
      *
@@ -418,10 +445,10 @@ class DashboardController extends Controller {
 
         return $this->render('dashboard/demand/dashboard_mesdemandesBrouillons.html.twig', array(
                     'demandes' => $demandes, 'brouillons' => $CountBrouillons, 'expires' => $CountExpires,
-                    'publies' => $CountPulibes, 'resolus' => $CountResolus,'corbeille' => $CountCorbeille
+                    'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille
         ));
     }
-    
+
     /**
      * View of dashboard.
      *
@@ -442,7 +469,7 @@ class DashboardController extends Controller {
 
         return $this->render('dashboard/demand/dashboard_mesdemandesExpires.html.twig', array(
                     'demandes' => $demandes, 'brouillons' => $CountBrouillons, 'expires' => $CountExpires,
-                    'publies' => $CountPulibes, 'resolus' => $CountResolus,'corbeille' => $CountCorbeille
+                    'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille
         ));
     }
 
@@ -468,7 +495,7 @@ class DashboardController extends Controller {
 
         return $this->render('dashboard/demand/dashboard_mesdemandesResolus.html.twig', array(
                     'demandes' => $demandes, 'brouillons' => $CountBrouillons, 'expires' => $CountExpires,
-                    'publies' => $CountPulibes, 'resolus' => $CountResolus,'corbeille' => $CountCorbeille
+                    'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille
         ));
     }
 
@@ -497,7 +524,7 @@ class DashboardController extends Controller {
                     'publies' => $CountPulibes, 'resolus' => $CountResolus, 'corbeille' => $CountCorbeille
         ));
     }
-    
+
     /**
      * Créer des demandes au brouillon.
      *
@@ -530,7 +557,7 @@ class DashboardController extends Controller {
                     'form' => $form->createView(),
         ));
     }
-    
+
     /**
      * Annuler les demandes qui ne sont pas encore souscrites.
      *
@@ -587,6 +614,13 @@ class DashboardController extends Controller {
             $demand->setCanceled(false);
             $demand->setCanceledReason(null);
             $em->flush();
+            //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            foreach ($users as $user) {
+                if ($user->getNotificationDemand()) {
+                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication de demande ', 'Une demande d\'appel d\'offre a été lancée depuis BenAgro !!! ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
+                }
+            }
             return $this->redirectToRoute('dashboard_mesdemandes');
         }
     }
@@ -607,11 +641,18 @@ class DashboardController extends Controller {
             $demand->getDateLimitUpdate()->add(new \DateInterval('P30D'));
             $demand->getDateLimit()->add(new \DateInterval('P30D'));
             $demand->setPublished(true);
+            //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            foreach ($users as $user) {
+                if ($user->getNotificationDemand()) {
+                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Relance de demande ', 'Une demande d\'appel d\'offre expirée a été relancée depuis BenAgro !!! ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
+                }
+            }
             $em->flush();
             return $this->redirectToRoute('dashboard_mesdemandes');
         }
     }
-    
+
     /**
      * Consulter les souscriptions d'une demande.
      *
@@ -624,7 +665,7 @@ class DashboardController extends Controller {
         $demand = $em->getRepository('AppBundle:Demand')->find($request->get('id'));
 
         return $this->render('dashboard/demand/dashboard_souscriptionsdemande.html.twig', array(
-                    'demande' => $demand,
+                    'demande' => $demand, 
         ));
     }
 
@@ -642,12 +683,20 @@ class DashboardController extends Controller {
             $sous->setAcceptedAt(new \DateTime());
             $sous->setAccepted(true);
             $em->flush();
-            return $this->redirectToRoute('dashboard_souscriptionsdemande',array(
-                    'id' => $sous->getDemand()->getId(),
+            //notification interne de l'action
+//            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+//            foreach ($users as $user) {
+            if ($user->getNotificationSupply()) {
+                $this->sendNotification($this->getUser(), $sous->getDemand()->getUser(), 'BenAgro - Confirmation de souscription à une demande ', 'Votre demande d\'appel d\'offre a été souscrite par un fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
+                $this->sendNotification($sous->getDemand()->getUser(), $this->getUser(), 'BenAgro - Confirmation de souscription à une demande ', 'Votre demande d\'appel d\'offre a été souscrite par un fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
+            }
+//            }
+            return $this->redirectToRoute('dashboard_souscriptionsdemande', array(
+                        'id' => $sous->getDemand()->getId(),
             ));
         }
     }
-    
+
     //les operations sur mes souscriptions effectuées
     /**
      * Consulter mes souscriptions (proposition d'offres) aux demandes des autres clients.
@@ -667,9 +716,10 @@ class DashboardController extends Controller {
 
         return $this->render('dashboard/souscription/dashboard_souscriptionsviews.html.twig', array(
                     'supplies' => $supplies,
+           
         ));
     }
-    
+
     /**
      * Annuler la souscription pendant qu'elle n'est pas encore acceptées par l'acheteur.
      *
@@ -688,7 +738,7 @@ class DashboardController extends Controller {
             return $this->redirectToRoute('dashboard_souscriptionsviews');
         }
     }
-    
+
     /**
      * Restauration de la souscription annulée sur le marché.
      *
@@ -707,7 +757,7 @@ class DashboardController extends Controller {
             return $this->redirectToRoute('dashboard_souscriptionsviews');
         }
     }
-    
+
     /**
      * Enregistrer la conclusion de la souscription après.
      *
@@ -724,10 +774,14 @@ class DashboardController extends Controller {
             $supply->setRating($request->get('rating'));
             $supply->setDeliverConclusion($request->get('deliverConclusion'));
             $em->flush();
+            if ($user->getNotificationSupply()) {
+                $this->sendNotification($this->getUser(), $sous->getDemand()->getUser(), 'BenAgro - Conclusion d\'une souscription ', 'Votre demande d\'appel d\'offre souscrite a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
+                $this->sendNotification($sous->getDemand()->getUser(), $this->getUser(), 'BenAgro - Conclusion d\'une souscription ', 'Votre demande d\'appel d\'offre souscrite a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
+            }
             return $this->redirectToRoute('dashboard_souscriptionsviews');
         }
     }
-    
+
     //les operations sur mes commandes émises
     /**
      * Consulter mes commandes (proposition de demande) aux offres après des autres vendeurs.
@@ -746,10 +800,11 @@ class DashboardController extends Controller {
         ));
 
         return $this->render('dashboard/commande/dashboard_commandesviews.html.twig', array(
-                    'orders' => $orders,
+                    'orders' => $orders, 
+         
         ));
     }
-    
+
     /**
      * Annuler la commande pendant qu'elle n'est pas encore acceptées par le vendeur.
      *
@@ -768,7 +823,7 @@ class DashboardController extends Controller {
             return $this->redirectToRoute('dashboard_commandesviews');
         }
     }
-      
+
     /**
      * Restauration de la commande annulée sur le marché.
      *
@@ -787,7 +842,7 @@ class DashboardController extends Controller {
             return $this->redirectToRoute('dashboard_commandesviews');
         }
     }
-    
+
     /**
      * Enregistrer la conclusion de la commande après.
      *
@@ -804,8 +859,76 @@ class DashboardController extends Controller {
             $order->setRating($request->get('rating'));
             $order->setDeliverConclusion($request->get('deliverConclusion'));
             $em->flush();
+            if ($this->getUser()->getNotificationOrder()) {
+                $this->sendNotification($cmde->getVente()->getUser(), $this->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La commande approuvée de votre client a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
+            }
+            if ($cmde->getVente()->getUser()->getNotificationOrder()) {
+                $this->sendNotification($this->getUser(), $cmde->getVente()->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La conclusion de votre commande a été enregistrée avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
+              }
             return $this->redirectToRoute('dashboard_commandesviews');
         }
     }
-    
+
+    private function sendNotification($emetteur, $recepteur, $title, $contenu, $link, $type) {
+
+        //notification interne
+        $manager = $this->get('mgilet.notification');
+        $notif = $manager->generateNotification($title);
+        $notif->setMessage($contenu);
+        $notif->setEmetteur($emetteur);
+
+        if ($type == 'offre') {
+            $notif->setNotificationVente(true);
+        }
+        if ($type == 'demand') {
+            $notif->setNotificationDemand(true);
+        }
+        if ($type == 'order') {
+            $notif->setNotificationOrder(true);
+        }
+        if ($type == 'supply') {
+            $notif->setNotificationSupply(true);
+        }
+
+        $notif->setLink($link);
+        $manager->addNotification($recepteur, $notif);
+
+        return;
+    }
+
+    private function notifierMessageInterne($recepteur, $title, $contenu, $type) {
+        //notification interne
+        // Créer le message
+        $composer = $this->get('fos_message.composer');
+        $message = $composer->newThread()
+                ->setSender($this->getUser())
+                ->addRecipient($recepteur)
+                ->setSubject($title);
+//                if($type=='offre'){ $message->setIsoffre(true);}
+//                if($type=='demand'){ $message->setIsdemand(true);}
+//                if($type=='order'){ $message->setIsorder(true);}
+//                if($type=='supply'){ $message->setIssupply(true);}
+        $message->setBody($contenu)
+                ->getMessage();
+        // Envoie le message
+        $sender = $this->get('fos_message.sender');
+        $sender->send($message);
+        return;
+    }
+
+    private function notifierMessageExterne($experditeur, $recepteur, $title, $contenu) {
+
+        //notification externe
+        //envoi d'email
+        $message = \Swift_Message::newInstance()
+                ->setSubject($title)
+                ->setFrom($experditeur)
+                ->setTo($recepteur)
+                ->setCharset('utf-8')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('dashboard/moncompte/sendNotification.html.twig', array('contenu' => $contenu)));
+        $this->get('mailer')->send($message);
+        //fin d'envoi d'email
+    }
+
 }

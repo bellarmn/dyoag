@@ -25,23 +25,23 @@
                 </div>
                 <ul class="navigation">
                     <li class="active">
-                        <a href="{{ path('dasboard_moncompte_profile') }}">
+                        <a href="{{ path('dasboard_moncompte_profile') }}" title="{{ "Mon Profil"|trans() }}">
                             <span class="fa fa-user"></span>
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#settings">
+                        <a  href="{{ path('dasboard_moncompte_setting') }}" title="{{ "Paramètres"|trans() }}">
                             <span class="fa fa-cog"></span>
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#email">
-                            <span class="fa fa-envelope"></span>
+                        <a href="{{ path('notifications_list_dash') }}" title="{{ "Notifications"|trans() }}">
+                            <span class="fa fa-bell-o"></span>
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#events">
-                            <span class="fa fa-calendar"></span>
+                        <a data-toggle="tab" href="{{ path("fos_user_security_logout") }}" title="{{ "Déconnexion"|trans() }}">
+                            <span class="fa fa-power-off"></span>
                         </a>
                     </li>
                 </ul>

@@ -28,6 +28,7 @@ class MarketController extends Controller {
         $form->handleRequest($request);
         return $this->render('market/index.html.twig', array(
                     'form' => $form->createView(),
+            
         ));
     }
 

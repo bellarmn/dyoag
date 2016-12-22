@@ -21,3 +21,24 @@ and open the template in the editor.
 .user-info-block .user-body {float: left; padding: 5%; width: 90%;}
 .user-body .tab-content > div {float: left; width: 100%;}
 .user-body .tab-content h4 {width: 100%; margin: 10px 0; color: #333;}
+
+/*pour notifications */
+.tab-pane .list-group-item:first-child {border-top-right-radius: 0px;border-top-left-radius: 0px;}
+.tab-pane .list-group-item:last-child {border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}
+/*
+.tab-pane .list-group .checkbox { float: left; }
+.tab-pane .list-group .fa { float: left; }
+.tab-pane .list-group .name { float: left; }
+.tab-pane .list-group .subjet { float: left; }*/
+
+a.list-group-item.read { color: #222;background-color: #F3F3F3; }
+.tab-pane .list-group .fa:hover { color:#FFBC00; }
+
+/*.tab-pane .list-group .label-success { float: right; }*/
+.nav-pills>li>a {padding: 5px 10px;}
+
+.ad { padding: 5px;background: #F5F5F5;color: #222;font-size: 80%;border: 1px solid #E5E5E5; }
+.ad a.title {color: #15C;text-decoration: none;font-weight: bold;font-size: 110%;}
+.ad a.url {color: #093;text-decoration: none;}
+
+#notificationCount { color:  yellow;}

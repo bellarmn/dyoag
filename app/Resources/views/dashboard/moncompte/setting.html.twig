@@ -1,0 +1,59 @@
+{% extends 'dashboard/moncompte/index.html.twig' %}
+
+{% block  moncompte %}
+
+    <h1> Paramètres de notification </h1>
+
+    <form  action="{{ path('dasboard_moncompte_setting') }}" method="post" class="form-group" >
+       
+    <fieldset>
+
+
+        <div class="form-group col-sm-12 alert alert-info"  role="alert">
+           {{ "Cochez la case ci-dessous pour recevoir les notifications en temps réel des offres émises sur le marché "|trans }}
+        </div>
+        <div class="form-group col-sm-12 " >
+            <div class="input-group">
+                {{ form_widget(form.notificationVente, {'attr' : {'class' : 'form-control' }}) }}
+            </div>
+            {{ form_errors(form.notificationVente) }}
+        </div>   
+        
+        <div class="form-group col-sm-12 alert alert-success"  role="alert" >
+             {{ "Cochez la case ci-dessous pour recevoir les notifications en temps réel des demandes émises sur le marché "|trans }}
+        </div>
+        <div class="form-group col-sm-12 ">
+            <div class="input-group">
+                {{ form_widget(form.notificationDemand, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+            {{ form_errors(form.notificationDemand) }}
+        </div>            
+
+          
+        <div class="form-group col-sm-12 alert alert-warning"  role="alert" >
+             {{ "Cochez la case ci-dessous pour recevoir les notifications en temps réel des commandes émises sur mes offres "|trans }}
+        </div>
+        <div class="form-group col-sm-12 ">
+            <div class="input-group">
+                {{ form_widget(form.notificationSupply, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+            {{ form_errors(form.notificationSupply) }}
+        </div> 
+          
+        <div class="form-group col-sm-12 alert alert-danger"  role="alert" >
+             {{ "Cochez la case ci-dessous pour recevoir les notifications en temps réel des souscriptions émises sur mes demandes "|trans }}
+        </div>
+        <div class="form-group col-sm-12 ">
+            <div class="input-group">
+                {{ form_widget(form.notificationOrder, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+            {{ form_errors(form.notificationOrder) }}
+        </div> 
+
+        {{ form_rest(form) }}
+        
+    </fieldset>
+    <button class="btn btn-primary btn-xs round-xl form-el-offset-1" type="submit"> Appliquer</button>
+   </form>
+
+{% endblock %}

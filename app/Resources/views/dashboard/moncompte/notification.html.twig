@@ -1,0 +1,43 @@
+{% extends 'dashboard/moncompte/index.html.twig' %}
+
+{% block  moncompte %}
+
+    <h3> Notifications -  {{ mgilet_unseen_notification_count() }} 
+        <!-- Nav tabs -->
+
+    </h3>
+
+    <ul class="nav nav-tabs" style="display: inline;">
+
+        <li>
+            <a href="#actions"  class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Actions <span class="caret"></span><span class="sr-only"> Toggle Dropdown</span>  </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ path('dasboard_moncompte_notificationsoffre') }}"> Trie d'offre</a></li>
+                <li><a href="{{ path('dasboard_moncompte_notificationsdemand') }}"> Trie de demande</a></li>
+                <li><a href="{{ path('dasboard_moncompte_notificationssupply') }}"> Trie de souscription</a></li>
+                <li><a href="{{ path('dasboard_moncompte_notificationsorder') }}"> Trie de commande</a></li>
+                <li><a href="{{ path('dasboard_moncompte_notifications') }}">Tout afficher</a></li>
+                <li role="separator" class="divider"></li>
+
+                <li><a id="notification-MarkAllAsSeen" href="{{ path('notification_markAllAsSeen_dash') }}" >{{ 'mark_all_as_seen'|trans({},'MgiletNotificationBundle') }}</a></li>
+                <li><a id="deleteNotificationaction" href="#" >{{ 'Supprimer'|trans() }}</a></li>
+
+            </ul>    
+
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div>
+            <div class="list-group">
+
+                {% include 'dashboard/moncompte/contentnotifications.html.twig' with {'notifications': notifications}   %}
+
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

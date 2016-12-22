@@ -43,6 +43,10 @@ easy_admin_bundle:
     type:     annotation
     prefix:   /admin
     
-#fos_message:
-#    resource: "@FOSMessageBundle/Resources/config/routing.xml"
-#    prefix: /dashboard_messagerie
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /dashboard/notification
+    
+mgilet_notifications:
+    resource: "@MgiletNotificationBundle/Controller/"
+    prefix: /notifications

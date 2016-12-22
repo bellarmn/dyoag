@@ -1,0 +1,28 @@
+{% if notifications %}
+    {% for notification in notifications %}
+        <a href="{{ path('notification_markAsSeen', { 'notification': notification.id }) }}" class="list-group-item">
+
+            <input type="checkbox" style="float: left;" name="repaction[]">
+
+            {% if notification.seen %}
+                <span class="fa fa-star-half-full" style="float: left;margin-left: 8px;"> </span>
+            {% else %}
+                <span class="fa fa-star" style="color:#FFBC00;float: left;margin-left: 8px;"> </span>
+            {% endif %}
+            <span class="name" style="min-width: 120px;float: left;color: #67b021;"> {% if notification.emetteur %} {{ notification.emetteur.firstName ~' '~ notification.emetteur.lastName[0:3] }} {% else %} Inconnu {% endif %}</span> 
+            <span class="subjet" style="float: left;font-size: 13px;"> {{ notification.subject }} </span>
+            <span class="text-muted" style="font-size: 11px;float: left;margin-left: 15px;">
+                - {{ notification.message[0:40] }} ... 
+            </span> 
+                <b style="color: #31708f;border-color: #bce8f1;font-size: 12px;" > {{ notification.date|date('H:i:s - d M y') }} </b>   
+        </a>
+              
+
+    {% endfor %}
+{% else %}
+    <div class="list-group">
+        <div class="list-group-item">
+            <span class="text-center"> <b>{{ 'no_new_notification'|trans({},'MgiletNotificationBundle') }} </b></span>
+        </div>
+    </div>
+{% endif %}

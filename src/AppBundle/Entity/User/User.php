@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use FOS\MessageBundle\Model\ParticipantInterface;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
+use Mgilet\NotificationBundle\Model\UserNotificationInterface;
 
 /**
  * A person (alive, dead, undead, or fictional).
@@ -32,7 +33,14 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
  *     }
  * )
  */
-class User extends BaseUser implements ParticipantInterface {
+class User extends BaseUser implements ParticipantInterface, UserNotificationInterface {
+
+    // link to notifications
+    /**
+     * @var Notification
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Notification", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     */
+    protected $notifications;
 
     /**
      * @var int
@@ -172,6 +180,30 @@ class User extends BaseUser implements ParticipantInterface {
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Demand", mappedBy="user", cascade={"persist"})
      */
     private $demands;
+        
+    /**
+     * @var notificationVente boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationVente = false;
+        
+    /**
+     * @var notificationDemand boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationDemand = false;
+        
+    /**
+     * @var notificationSupply boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationSupply = false;
+        
+    /**
+     * @var notificationOrder boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationOrder = false;
 
     public function __construct() {
         parent::__construct();
@@ -179,6 +211,7 @@ class User extends BaseUser implements ParticipantInterface {
         $this->ventes = new ArrayCollection();
         $this->supplies = new ArrayCollection();
         $this->demands = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     public function getId()
@@ -552,6 +585,146 @@ class User extends BaseUser implements ParticipantInterface {
      */
     public function getFields() {
         return $this->fields;
+    }
+
+
+    /**
+     * Set notificationVente
+     *
+     * @param boolean $notificationVente
+     *
+     * @return User
+     */
+    public function setNotificationVente($notificationVente)
+    {
+        $this->notificationVente = $notificationVente;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationVente
+     *
+     * @return boolean
+     */
+    public function getNotificationVente()
+    {
+        return $this->notificationVente;
+    }
+
+    /**
+     * Set notificationDemand
+     *
+     * @param boolean $notificationDemand
+     *
+     * @return User
+     */
+    public function setNotificationDemand($notificationDemand)
+    {
+        $this->notificationDemand = $notificationDemand;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationDemand
+     *
+     * @return boolean
+     */
+    public function getNotificationDemand()
+    {
+        return $this->notificationDemand;
+    }
+
+    /**
+     * Set notificationSupply
+     *
+     * @param boolean $notificationSupply
+     *
+     * @return User
+     */
+    public function setNotificationSupply($notificationSupply)
+    {
+        $this->notificationSupply = $notificationSupply;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationSupply
+     *
+     * @return boolean
+     */
+    public function getNotificationSupply()
+    {
+        return $this->notificationSupply;
+    }
+
+    /**
+     * Set notificationOrder
+     *
+     * @param boolean $notificationOrder
+     *
+     * @return User
+     */
+    public function setNotificationOrder($notificationOrder)
+    {
+        $this->notificationOrder = $notificationOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationOrder
+     *
+     * @return boolean
+     */
+    public function getNotificationOrder()
+    {
+        return $this->notificationOrder;
+    }
+    
+    // method implementation for UserNotificationInterface
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addNotification($notification)
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeNotification($notification)
+    {
+        if ($this->notifications->contains($notification)) {
+            $this->notifications->removeElement($notification);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdentifier()
+    {
+        $this->getId();
     }
 
 }

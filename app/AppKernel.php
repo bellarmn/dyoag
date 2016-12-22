@@ -29,6 +29,7 @@ class AppKernel extends Kernel {
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
+            new Mgilet\NotificationBundle\MgiletNotificationBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

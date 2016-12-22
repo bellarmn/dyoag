@@ -81,13 +81,13 @@ class Product {
     
     /**
      * @var ventes[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vente", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vente", mappedBy="product", cascade={"persist"})
      */
     private $ventes;
     
     /**
      * @var demands[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Demand", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Demand", mappedBy="product", cascade={"persist"})
      */
     private $demands;
 
@@ -220,10 +220,6 @@ class Product {
         return '' . $this->getName();
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 60da85f01e96be5e9d97023cb1f50849e273d56c
     /**
      * Add measure
      *
@@ -231,12 +227,7 @@ class Product {
      *
      * @return Product
      */
-<<<<<<< HEAD
-    public function addMeasure(\AppBundle\Entity\Measure $measure)
-    {
-=======
     public function addMeasure(\AppBundle\Entity\Measure $measure) {
->>>>>>> 60da85f01e96be5e9d97023cb1f50849e273d56c
         $this->measures[] = $measure;
 
         return $this;
@@ -247,12 +238,7 @@ class Product {
      *
      * @param \AppBundle\Entity\Measure $measure
      */
-<<<<<<< HEAD
-    public function removeMeasure(\AppBundle\Entity\Measure $measure)
-    {
-=======
     public function removeMeasure(\AppBundle\Entity\Measure $measure) {
->>>>>>> 60da85f01e96be5e9d97023cb1f50849e273d56c
         $this->measures->removeElement($measure);
     }
 
@@ -261,12 +247,9 @@ class Product {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-<<<<<<< HEAD
-    public function getMeasures()
-    {
+    public function getMeasures() {
         return $this->measures;
     }
-
     /**
      * Add vente
      *
@@ -300,10 +283,59 @@ class Product {
     {
         return $this->ventes;
     }
-=======
-    public function getMeasures() {
-        return $this->measures;
+
+    /**
+     * Add demand
+     *
+     * @param \AppBundle\Entity\Demand $demand
+     *
+     * @return Product
+     */
+    public function addDemand(\AppBundle\Entity\Demand $demand)
+    {
+        $this->demands[] = $demand;
     }
 
->>>>>>> 60da85f01e96be5e9d97023cb1f50849e273d56c
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Product
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Remove demand
+     *
+     * @param \AppBundle\Entity\Demand $demand
+     */
+    public function removeDemand(\AppBundle\Entity\Demand $demand)
+    {
+        $this->demands->removeElement($demand);
+    }
+
+    /**
+     * Get demands
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDemands()
+    {
+        return $this->demands;
+    }
+     /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

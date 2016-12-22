@@ -8,6 +8,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use ZendSearch\Lucene\Lucene;
+use ZendSearch\Lucene\Document;
+use ZendSearch\Lucene\Document\Field;
 
 /**
  * Vente
@@ -143,7 +146,7 @@ class Vente {
     private $measure;
 
     /**
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="vente", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="vente")
      */
     private $orders;
 
@@ -306,64 +309,63 @@ class Vente {
         return $this->district;
     }
 
-    static public function getLuceneIndex() {
-        if (file_exists($index = self::getLuceneIndexFile())) {
-            return \Zend_Search_Lucene::open($index);
-        }
-
-        return \Zend_Search_Lucene::create($index);
-    }
-
-    static public function getLuceneIndexFile() {
-        return __DIR__ . '/../../../web/data/vente.index';
-    }
-
-    /**
-     * Set createdAt
-     * *
-     * @ORM\PostPersist
-     * @ORM\PostUpdate
-     */
-    public function updateLuceneIndex() {
-        $index = self::getLuceneIndex();
-
-        // remove existing entries
-        foreach ($index->find('pk:' . $this->getId()) as $hit) {
-            $index->deleted($hit->id);
-        }
-
-        // don't index expired and non-activated jobs
-//        if ($this->isExpired() || !$this->getIsActivated())
-//        {
-//          return;
+//    static public function getLuceneIndex() {
+//        if (file_exists($index = self::getLuceneIndexFile())) {
+//            return Lucene::open($index);
 //        }
-
-        $doc = new \Zend_Search_Lucene_Document();
-
-        // store job primary key to identify it in the search results
-        $doc->addField(\Zend_Search_Lucene_Field::Keyword('pk', $this->getId()));
-
-        // index job fields
-        $doc->addField(\Zend_Search_Lucene_Field::UnStored('product', $this->getProduct(), 'utf-8'));
-        $doc->addField(\Zend_Search_Lucene_Field::UnStored('lieu', $this->getLieu(), 'utf-8'));
-
-        // add job to the index
-        $index->addDocument($doc);
-        $index->commit();
-    }
-
-    /**
-     * Set createdAt
-     * *
-     * @ORM\PostRemove
-     */
-    public function deleteLuceneIndex() {
-        $index = self::getLuceneIndex();
-
-        foreach ($index->find('pk:' . $this->getId()) as $hit) {
-            $index->deleted($hit->id);
-        }
-    }
+//
+//        return Lucene::create($index);
+//    }
+//
+//    static public function getLuceneIndexFile() {
+//        return __DIR__ . '/../../../web/data/vente.index';
+//    }
+//
+//    /**
+//     * Set createdAt
+//     * *
+//     * @ORM\PostPersist
+//     * @ORM\PostUpdate
+//     */
+//    public function updateLuceneIndex() {
+//        $index = self::getLuceneIndex();
+//
+//        // remove existing entries
+//        foreach ($index->find('pk:' . $this->getId()) as $hit) {
+//            $index->delete($hit->id);
+//        }
+//
+//        // don't index unavailable and non-published sale
+//        if (!$this->getAvailable() || !$this->getPublished()) {
+//            return;
+//        }
+//
+//        $doc = new Document();
+//
+//        // store vente primary key to identify it in the search results
+//        $doc->addField(Field::Keyword('pk', $this->getId()));
+//
+//        // index vente fields
+//        $doc->addField(Field::UnStored('product', $this->getProduct(), 'utf-8'));
+//        $doc->addField(Field::UnStored('lieu', $this->getLieu(), 'utf-8'));
+//        $doc->addField(Field::UnStored('district', $this->getDistrict(), 'utf-8'));
+//        // add vente to the index
+//        $index->addDocument($doc);
+//        $index->commit();
+//    }
+//
+//    /**
+//     * Set createdAt
+//     * *
+//     * @ORM\PostRemove
+//     */
+//    public function deleteLuceneIndex() {
+//        $index = self::getLuceneIndex();
+//
+//        foreach ($index->find('pk:' . $this->getId()) as $hit) {
+//            $index->delete($hit->id);
+//        }
+//    }
 
     /**
      * Get id
@@ -768,8 +770,6 @@ class Vente {
         return $this->product;
     }
 
-<<<<<<< HEAD
-
     /**
      * Set deleted
      *
@@ -777,8 +777,7 @@ class Vente {
      *
      * @return Vente
      */
-    public function setDeleted($deleted)
-    {
+    public function setDeleted($deleted) {
         $this->deleted = $deleted;
 
         return $this;
@@ -789,10 +788,12 @@ class Vente {
      *
      * @return boolean
      */
-    public function getDeleted()
-    {
+    public function getDeleted() {
         return $this->deleted;
     }
-=======
->>>>>>> 60da85f01e96be5e9d97023cb1f50849e273d56c
+
+    public function __toString() {
+
+    }
+
 }

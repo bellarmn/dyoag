@@ -1,0 +1,190 @@
+<?php
+
+// src/AppBundle/Entity/Notification.php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Mgilet\NotificationBundle\Model\AbstractNotification;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="notification")
+ */
+class Notification extends AbstractNotification {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="notifications")
+     */
+    protected $user;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
+     */
+    private $recepteur;
+
+    /**
+     * @var notificationVente boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationVente = false;
+        
+    /**
+     * @var notificationDemand boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationDemand = false;
+        
+    /**
+     * @var notificationSupply boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationSupply = false;
+        
+    /**
+     * @var notificationOrder boolean. 
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
+     */
+    private $notificationOrder = false;
+    
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser() {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return Notification
+     */
+    public function setUser($user) {
+        $this->user = $user;
+        $user->addNotification($this);
+
+        return $this;
+    }
+
+
+    /**
+     * Set notificationVente
+     *
+     * @param boolean $notificationVente
+     *
+     * @return Notification
+     */
+    public function setNotificationVente($notificationVente)
+    {
+        $this->notificationVente = $notificationVente;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationVente
+     *
+     * @return boolean
+     */
+    public function getNotificationVente()
+    {
+        return $this->notificationVente;
+    }
+
+    /**
+     * Set notificationDemand
+     *
+     * @param boolean $notificationDemand
+     *
+     * @return Notification
+     */
+    public function setNotificationDemand($notificationDemand)
+    {
+        $this->notificationDemand = $notificationDemand;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationDemand
+     *
+     * @return boolean
+     */
+    public function getNotificationDemand()
+    {
+        return $this->notificationDemand;
+    }
+
+    /**
+     * Set notificationSupply
+     *
+     * @param boolean $notificationSupply
+     *
+     * @return Notification
+     */
+    public function setNotificationSupply($notificationSupply)
+    {
+        $this->notificationSupply = $notificationSupply;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationSupply
+     *
+     * @return boolean
+     */
+    public function getNotificationSupply()
+    {
+        return $this->notificationSupply;
+    }
+
+    /**
+     * Set notificationOrder
+     *
+     * @param boolean $notificationOrder
+     *
+     * @return Notification
+     */
+    public function setNotificationOrder($notificationOrder)
+    {
+        $this->notificationOrder = $notificationOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationOrder
+     *
+     * @return boolean
+     */
+    public function getNotificationOrder()
+    {
+        return $this->notificationOrder;
+    }
+
+    /**
+     * Get seen
+     *
+     * @return boolean
+     */
+    public function getSeen()
+    {
+        return $this->seen;
+    }
+}

@@ -65,6 +65,13 @@ class DemandController extends Controller {
             $this->addFlash(
                     'success', "Votre demande d'approvisionnement a été bien enregistrée!"
             );
+            //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            foreach ($users as $user) {
+                if ($user->getNotificationDemand()) {
+                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication de demande ', 'Une demande d\'appel d\'offre a été lancée depuis BenAgro !!! ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
+                }
+            }
             return $this->redirectToRoute('demand_index');
         }
 
@@ -194,4 +201,67 @@ class DemandController extends Controller {
         ));
     }
 
+    private function sendNotification($emetteur, $recepteur, $title, $contenu, $link, $type) {
+
+        //notification interne
+        $manager = $this->get('mgilet.notification');
+        $notif = $manager->generateNotification($title);
+        $notif->setMessage($contenu);
+        $notif->setEmetteur($emetteur);
+
+        if ($type == 'offre') {
+            $notif->setNotificationVente(true);
+        }
+        if ($type == 'demand') {
+            $notif->setNotificationDemand(true);
+        }
+        if ($type == 'order') {
+            $notif->setNotificationOrder(true);
+        }
+        if ($type == 'supply') {
+            $notif->setNotificationSupply(true);
+        }
+
+        $notif->setLink($link);
+        $manager->addNotification($recepteur, $notif);
+
+        return;
+    }
+
+    private function notifierMessageInterne($recepteur, $title, $contenu, $type) {
+        //notification interne
+        // Créer le message
+        $composer = $this->get('fos_message.composer');
+        $message = $composer->newThread()
+                ->setSender($this->getUser())
+                ->addRecipient($recepteur)
+                ->setSubject($title);
+//                if($type=='offre'){ $message->setIsoffre(true);}
+//                if($type=='demand'){ $message->setIsdemand(true);}
+//                if($type=='order'){ $message->setIsorder(true);}
+//                if($type=='supply'){ $message->setIssupply(true);}
+        $message->setBody($contenu)
+                ->getMessage();
+        // Envoie le message
+        $sender = $this->get('fos_message.sender');
+        $sender->send($message);
+        return;
+    }
+
+    private function notifierMessageExterne($experditeur, $recepteur, $title, $contenu) {
+
+        //notification externe
+        //envoi d'email
+        $message = \Swift_Message::newInstance()
+                ->setSubject($title)
+                ->setFrom($experditeur)
+                ->setTo($recepteur)
+                ->setCharset('utf-8')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('dashboard/moncompte/sendNotification.html.twig', array('contenu' => $contenu)));
+        $this->get('mailer')->send($message);
+        //fin d'envoi d'email
+    }
+
+    
 }

@@ -1,0 +1,13 @@
+{% if mgilet_unseen_notification_count() > 0 %}
+    <li class="dropdown">
+    {% else %}
+    <li class="dropdown">
+    {% endif %}
+    <a href="{{ path('dasboard_moncompte_notifications') }}" id="notificationDropdown" >
+        <i class="fa fa-bell-o"> </i> 
+        <span id="notificationCount"> {{ mgilet_unseen_notification_count() }}</span>
+    </a>
+
+</li>
+
+<script type="application/javascript" src="{{ asset('bundles/mgiletnotification/js/ajax-notification.js') }}"></script>

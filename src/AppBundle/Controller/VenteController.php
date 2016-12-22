@@ -71,6 +71,13 @@ class VenteController extends Controller {
             $this->addFlash(
                     'success', "Votre offre de produit a été bien enregistré!"
             );
+            //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            foreach ($users as $user) {
+                if ($user->getNotificationVente()) {
+                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication d\'offre ', 'Une offre a été Publiée depuis BenAgro !!! ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
+                }
+            }
             return $this->redirectToRoute('market_index');
         }
 
@@ -107,6 +114,12 @@ class VenteController extends Controller {
             $this->addFlash(
                     'success_dash', "Votre commande a été bien enregistrée!"
             );
+             if ($this->getUser()->getNotificationOrder()) {
+                $this->sendNotification($commande->getVente()->getUser(), $this->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La commande approuvée de votre client a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $commande->getVente()->getId())), 'order');
+            }
+            if ($commande->getVente()->getUser()->getNotificationOrder()) {
+                $this->sendNotification($this->getUser(), $commande->getVente()->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La conclusion de votre commande a été enregistrée avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $commande->getVente()->getId())), 'order');
+              }
             return $this->redirectToRoute('dashboard_commandesviews');
         }
 
@@ -128,7 +141,7 @@ class VenteController extends Controller {
                     'vente' => $vente,
                     'relativeVentes' => $relativeVentes,
                     'form' => $form->createView(),
-        ));
+                  ));
     }
 
     /**
@@ -298,4 +311,67 @@ class VenteController extends Controller {
         ));
     }
 
+    private function sendNotification($emetteur, $recepteur, $title, $contenu, $link, $type) {
+
+        //notification interne
+        $manager = $this->get('mgilet.notification');
+        $notif = $manager->generateNotification($title);
+        $notif->setMessage($contenu);
+        $notif->setEmetteur($emetteur);
+
+        if ($type == 'offre') {
+            $notif->setNotificationVente(true);
+        }
+        if ($type == 'demand') {
+            $notif->setNotificationDemand(true);
+        }
+        if ($type == 'order') {
+            $notif->setNotificationOrder(true);
+        }
+        if ($type == 'supply') {
+            $notif->setNotificationSupply(true);
+        }
+
+        $notif->setLink($link);
+        $manager->addNotification($recepteur, $notif);
+
+        return;
+    }
+
+    private function notifierMessageInterne($recepteur, $title, $contenu, $type) {
+        //notification interne
+        // Créer le message
+        $composer = $this->get('fos_message.composer');
+        $message = $composer->newThread()
+                ->setSender($this->getUser())
+                ->addRecipient($recepteur)
+                ->setSubject($title);
+//                if($type=='offre'){ $message->setIsoffre(true);}
+//                if($type=='demand'){ $message->setIsdemand(true);}
+//                if($type=='order'){ $message->setIsorder(true);}
+//                if($type=='supply'){ $message->setIssupply(true);}
+        $message->setBody($contenu)
+                ->getMessage();
+        // Envoie le message
+        $sender = $this->get('fos_message.sender');
+        $sender->send($message);
+        return;
+    }
+
+    private function notifierMessageExterne($experditeur, $recepteur, $title, $contenu) {
+
+        //notification externe
+        //envoi d'email
+        $message = \Swift_Message::newInstance()
+                ->setSubject($title)
+                ->setFrom($experditeur)
+                ->setTo($recepteur)
+                ->setCharset('utf-8')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('dashboard/moncompte/sendNotification.html.twig', array('contenu' => $contenu)));
+        $this->get('mailer')->send($message);
+        //fin d'envoi d'email
+    }
+
+    
 }

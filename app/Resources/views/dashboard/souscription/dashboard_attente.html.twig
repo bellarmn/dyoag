@@ -21,7 +21,7 @@
                         </dl>
                         <br/>
                         <address>
-                            <i class="fa fa-user" aria-hidden="true"></i> <span class="user" style="font-size: 13px;">Acheteur : {{ element.demand.user.lastName~' '~element.demand.user.firstName[0:3] }} ...</span>
+                            <i class="fa fa-user" aria-hidden="true"></i> <span class="user" style="font-size: 13px;">Acheteur : {% if element.demand.user is not null %} {{ element.demand.user.lastName~' '~element.demand.user.firstName[0:3] }} ...{% else %} inconnu {% endif %}</span>
                             <dl>
                                 <dt style="font-size: 13px;"> <i class="fa fa-phone" aria-hidden="true"></i> {{ phone_number_format(element.demand.user.phone, 'INTERNATIONAL') }}</dt>
                             </dl>
