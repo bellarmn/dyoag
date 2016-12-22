@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html class="smoothscroll">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -107,6 +107,7 @@
         {% endif %}
 
         <script src="{{ asset('assets/js/benagro.min.js') }}"></script>
+        <script src="{{ asset('/js/app/vendor/device.min.js') }}"></script>
         <script src="{{ asset('assets/js/requirejs.js') }}"></script>
         <script src="{{ asset('js/app/main.js') }}"></script>
         {# inclusion de deux scripts pour résoudre le problème d'erreur 404 de fosjsrouting qui ne marchait pas#}

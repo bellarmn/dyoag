@@ -48,7 +48,7 @@ define(
                         var $measures_selector = $('#appbundle_demand_measure'),
                                 $product_mage_selector = $('#product_image'),
                                 measures = data[0].measures;
-                        $product_mage_selector.html('<img alt="" src="/uploads/images/products/' + data[0].imageName + '">');
+                        $product_mage_selector.html('<img alt="" class="img-circle" src="/uploads/images/products/' + data[0].imageName + '">');
                         $measures_selector.html('<option>Unités de mesures</option>');
                         for (var i = 0, total = measures.length; i < total; i++) {
                             console.log(measures[i].id);

@@ -134,6 +134,7 @@ class Demand {
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $canceled = false;
+//nbSupplier //qui peut repondre à ma demande (1 ou n vendeur)
 
     /**
      * @ORM\ManyToOne(targetEntity="Measure")

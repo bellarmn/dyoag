@@ -23,14 +23,14 @@ $(".rd-navbar-nav li a").each(function () {
 
 $('.dropdown-toggle').dropdown();
 
-///**
-// * @function      Include
-// * @description   Includes an external scripts to the page
-// * @param         {string} scriptUrl
-// */
-//function include(scriptUrl) {
-//    document.write('<script src="' + scriptUrl + '"></script>');
-//}
+/**
+ * @function      Include
+ * @description   Includes an external scripts to the page
+ * @param         {string} scriptUrl
+ */
+function include(scriptUrl) {
+    document.write('<script src="' + scriptUrl + '"></script>');
+}
 //
 //
 ///**
@@ -65,7 +65,7 @@ $('.dropdown-toggle').dropdown();
 //;
 //(function ($) {
 //    if (isIE() && isIE() < 11) {
-//        include('js/pointer-events.min.js');
+//        include('js/app/vendor/pointer-events.min.js');
 //        $('html').addClass('lt-ie11');
 //        $(document).ready(function () {
 //            PointerEventsPolyfill.initialize({});
@@ -86,7 +86,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('html');
 //    if (o.hasClass('desktop') && o.hasClass("wow-animation") && $(".wow").length) {
-//        include('js/wow.min.js');
+//        include('js/app/vendor/wow.min.js');
 //
 //        $(document).ready(function () {
 //            new WOW().init();
@@ -95,47 +95,47 @@ $('.dropdown-toggle').dropdown();
 //})($);
 //
 //
-///**
-// * @module       Smoothscroll
-// * @description  Enables smooth scrolling on the page
-// */
-//;
-//(function ($) {
-//    if ($("html").hasClass("smoothscroll")) {
-//        include('js/smoothscroll.min.js');
-//    }
-//})($);
-//
-///**
-// * @module       RD Smoothscroll
-// * @description  Enables smooth scrolling on the page for all platforms
-// */
-//;
-//(function ($) {
-//    if ($("html").hasClass("smoothscroll-all")) {
-//        include('js/rd-smoothscroll.min.js');
-//    }
-//})($);
-//
-//
-///**
-// * @module       ToTop
-// * @description  Enables ToTop Plugin
-// */
-//;
-//(function ($) {
-//    var o = $('html');
-//    if (o.hasClass('desktop')) {
-//        include('js/jquery.ui.totop.min.js');
-//
-//        $(document).ready(function () {
-//            $().UItoTop({
-//                easingType: 'easeOutQuart',
-//                containerClass: 'ui-to-top fl-bigmug-line-up107'
-//            });
-//        });
-//    }
-//})($);
+/**
+ * @module       Smoothscroll
+ * @description  Enables smooth scrolling on the page
+ */
+
+(function ($) {
+    if ($("html").hasClass("smoothscroll")) {
+        include('/js/app/vendor/smoothscroll.min.js');
+    }
+})($);
+
+/**
+ * @module       RD Smoothscroll
+ * @description  Enables smooth scrolling on the page for all platforms
+ */
+
+(function ($) {
+    if ($("html").hasClass("smoothscroll-all")) {
+        include('/js/app/vendor/rd-smoothscroll.min.js');
+    }
+})($);
+
+
+/**
+ * @module       ToTop
+ * @description  Enables ToTop Plugin
+ */
+
+(function ($) {
+    var o = $('html');
+    if (o.hasClass('jacques')) {
+        include('/js/app/vendor/jquery.ui.totop.js');
+
+        $(document).ready(function () {
+            $().UItoTop({
+                easingType: 'easeOutQuart',
+                containerClass: 'ui-to-top fl-bigmug-line-up107'
+            });
+        });
+    }
+})($);
 //
 ///**
 // * @module       Responsive Tabs
@@ -145,7 +145,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.responsive-tabs');
 //    if (o.length > 0) {
-//        include('js/jquery.easy-responsive-tabs.min.js');
+//        include('js/app/vendor/jquery.easy-responsive-tabs.min.js');
 //
 //        $(document).ready(function () {
 //            o.each(function () {
@@ -168,7 +168,7 @@ $('.dropdown-toggle').dropdown();
 //    var o = document.getElementById("google-map");
 //    if (o) {
 //        include('//maps.google.com/maps/api/js?sensor=false');
-//        include('js/jquery.rd-google-map.js');
+//        include('js/app/vendor/jquery.rd-google-map.js');
 //
 //        $(document).ready(function () {
 //            var o = $('#google-map');
@@ -201,69 +201,69 @@ $('.dropdown-toggle').dropdown();
 //        ($);
 //
 //
-///**
-// * @module       RD Navbar
-// * @description  Enables RD Navbar Plugin
-// */
-//;
-//(function ($) {
-//    var o = $('.rd-navbar');
-//    if (o.length > 0) {
-//        include('js/jquery.rd-navbar.min.js');
-//
-//        $(document).ready(function () {
-//            var responsive = {};
-//
-//            var aliaces = ["-xs-", "-sm-", "-md-", "-lg-"],
-//                    values = [480, 768, 992, 1200],
-//                    i, j, val;
-//
-//            responsive[0] = {
-//                layout: o.attr("data-layout") || "rd-navbar-fixed",
-//                focusOnHover: o.attr("data-hover-on") === "true",
-//                stickUp: o.attr("data-stick-up") === "true"
-//            };
-//
-//            for (i = 0; i < values.length; i++) {
-//
-//                //for (j = i; j >= -1; j--) {
-//                val = '';
-//                if (o.attr("data" + aliaces[i] + "layout")) {
-//                    if (!responsive[values[i]])
-//                        responsive[values[i]] = {};
-//                    if (!responsive[values[i]]["layout"]) {
-//                        responsive[values[i]]["layout"] = o.attr("data" + aliaces[i] + "layout");
-//                    }
-//                }
-//
-//                if (o.attr("data" + aliaces[i] + "hover-on")) {
-//                    if (!responsive[values[i]])
-//                        responsive[values[i]] = {};
-//                    if (!responsive[values[i]]["focusOnHover"]) {
-//                        val = o.attr("data" + aliaces[i] + "hover-on") === 'true';
-//                        responsive[values[i]]["focusOnHover"] = val;
-//                    }
-//                }
-//
-//                if (o.attr("data" + aliaces[i] + "stick-up")) {
-//                    if (!responsive[values[i]])
-//                        responsive[values[i]] = {};
-//                    if (!responsive[values[i]]["stickUp"] && responsive[values[i]]["stickUp"] !== 0) {
-//                        val = o.attr("data" + aliaces[i] + "stickUp") === 'true';
-//                        responsive[values[i]]["stickUp"] = val;
-//                    }
-//                }
-//                //}
-//            }
-//
-//            // console.log(responsive);
-//
+/**
+ * @module       RD Navbar
+ * @description  Enables RD Navbar Plugin
+ */
+;
+(function ($) {
+    var o = $('.rd-navbar');
+    if (o.length > 0) {
+        include('/js/app/vendor/jquery.rd-navbar.min.js');
+
+        $(document).ready(function () {
+            var responsive = {};
+
+            var aliaces = ["-xs-", "-sm-", "-md-", "-lg-"],
+                    values = [480, 768, 992, 1200],
+                    i, j, val;
+
+            responsive[0] = {
+                layout: o.attr("data-layout") || "rd-navbar-fixed",
+                focusOnHover: o.attr("data-hover-on") === "true",
+                stickUp: o.attr("data-stick-up") === "true"
+            };
+
+            for (i = 0; i < values.length; i++) {
+
+                //for (j = i; j >= -1; j--) {
+                val = '';
+                if (o.attr("data" + aliaces[i] + "layout")) {
+                    if (!responsive[values[i]])
+                        responsive[values[i]] = {};
+                    if (!responsive[values[i]]["layout"]) {
+                        responsive[values[i]]["layout"] = o.attr("data" + aliaces[i] + "layout");
+                    }
+                }
+
+                if (o.attr("data" + aliaces[i] + "hover-on")) {
+                    if (!responsive[values[i]])
+                        responsive[values[i]] = {};
+                    if (!responsive[values[i]]["focusOnHover"]) {
+                        val = o.attr("data" + aliaces[i] + "hover-on") === 'true';
+                        responsive[values[i]]["focusOnHover"] = val;
+                    }
+                }
+
+                if (o.attr("data" + aliaces[i] + "stick-up")) {
+                    if (!responsive[values[i]])
+                        responsive[values[i]] = {};
+                    if (!responsive[values[i]]["stickUp"] && responsive[values[i]]["stickUp"] !== 0) {
+                        val = o.attr("data" + aliaces[i] + "stickUp") === 'true';
+                        responsive[values[i]]["stickUp"] = val;
+                    }
+                }
+                //}
+            }
+
+            console.log(responsive);
+
 //            o.RDNavbar({
 //                responsive: responsive
 //            });
-//        });
-//    }
-//})($);
+        });
+    }
+})($);
 //
 //
 ///**
@@ -275,7 +275,7 @@ $('.dropdown-toggle').dropdown();
 //
 //    var o = $(".swiper-slider");
 //    if (o.length) {
-//        include('js/jquery.swiper.min.js');
+//        include('js/app/vendor/jquery.swiper.min.js');
 //
 //
 //
@@ -460,7 +460,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $(".progress-bar-custom");
 //    if (o.length) {
-//        include('js/progressbar.min.js');
+//        include('js/app/vendor/progressbar.min.js');
 //
 //        function isScrolledIntoView(elem) {
 //            var $window = $(window);
@@ -556,7 +556,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.counter');
 //    if (o.length > 0) {
-//        include('js/jquery.countTo.js');
+//        include('js/app/vendor/jquery.countTo.js');
 //        $(document).ready(function () {
 //            $(document)
 //                    //$(this).scroll(function () {
@@ -585,7 +585,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.progress-bar');
 //    if (o.length > 0) {
-//        include('js/jquery.counter.js');
+//        include('js/app/vendor/jquery.counter.js');
 //        $(document).ready(function () {
 //            $(document)
 //                    //$(this).scroll(function () {
@@ -638,7 +638,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.rd-parallax');
 //    if (o.length) {
-//        include('js/jquery.rd-parallax.min.js');
+//        include('js/app/vendor/jquery.rd-parallax.min.js');
 //        $(document).ready(function () {
 //            o.each(function () {
 //                if (!$(this).parents(".swiper-slider").length) {
@@ -662,7 +662,7 @@ $('.dropdown-toggle').dropdown();
 ////(function ($) {
 ////    var o = $('.img_zoom');
 ////    if (o.length) {
-////        include("js/jQuery.MagnifierRentgen.min.js");
+////        include("js/app/vendor/jQuery.MagnifierRentgen.min.js");
 ////        $(document).ready(function () {
 ////            o.each(function () {
 ////                $(this).magnifierRentgen();
@@ -683,8 +683,8 @@ $('.dropdown-toggle').dropdown();
 ////    var o = $('.img_zoom');
 ////    if (o.length) {
 ////
-////        include("js/jquery.elevatezoom.js");
-////        include("js/jquery.elevateZoom-3.0.8.min.js");
+////        include("js/app/vendor/jquery.elevatezoom.js");
+////        include("js/app/vendor/jquery.elevateZoom-3.0.8.min.js");
 ////
 ////        add_dataZoom = function(el){
 ////            var s = el;
@@ -766,7 +766,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.owl-carousel');
 //    if (o.length) {
-//        include('js/jquery.owl-carousel.js');
+//        include('js/app/vendor/jquery.owl-carousel.js');
 //
 //        var isTouch = "ontouchstart" in window;
 //
@@ -952,7 +952,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.questions');
 //    if (o.length) {
-//        include('js/scrollTo.js');
+//        include('js/app/vendor/scrollTo.js');
 //        $(document).ready(function () {
 //            o.scrollTo({});
 //        });
@@ -968,7 +968,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.rd-navbar-search');
 //    if (o.length) {
-//        include('js/jquery.search.min.js');
+//        include('js/app/vendor/jquery.search.min.js');
 //        $(document).ready(function () {
 //            o.RDSearch({});
 //        });
@@ -984,7 +984,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('#DateCountdown');
 //    if (o.length) {
-//        include('js/TimeCircles.js');
+//        include('js/app/vendor/TimeCircles.js');
 //        $(document).ready(function () {
 //            var time = {
 //                "Days": {
@@ -1051,7 +1051,7 @@ $('.dropdown-toggle').dropdown();
 //    var o = $('[data-lightbox]').not('[data-lightbox="gallery"] [data-lightbox]'),
 //            g = $('[data-lightbox^="gallery"]');
 //    if (o.length > 0 || g.length > 0) {
-//        include('js/jquery.magnific-popup.min.js');
+//        include('js/app/vendor/jquery.magnific-popup.min.js');
 //
 //        $(document).ready(function () {
 //            if (o.length) {
@@ -1101,7 +1101,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $(".isotope");
 //    if (o.length) {
-//        include('js/isotope.pkgd.min.js');
+//        include('js/app/vendor/isotope.pkgd.min.js');
 //
 //        $(document).ready(function () {
 //            o.each(function () {
@@ -1182,7 +1182,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.form-label');
 //    if (o.length) {
-//        include('js/mailform/jquery.rd-input-label.js');
+//        include('js/app/vendor/mailform/jquery.rd-input-label.js');
 //
 //        $(document).ready(function () {
 //            o.RDInputLabel();
@@ -1196,8 +1196,8 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $('.rd-mailform');
 //    if (o.length > 0) {
-//        include('js/mailform/jquery.form.min.js');
-//        include('js/mailform/jquery.rd-mailform.min.js');
+//        include('js/app/vendor/mailform/jquery.form.min.js');
+//        include('js/app/vendor/mailform/jquery.rd-mailform.min.js');
 //
 //        $(document).ready(function () {
 //            var o = $('.rd-mailform');
@@ -1252,7 +1252,7 @@ $('.dropdown-toggle').dropdown();
 //(function ($) {
 //    var o = $(".vide");
 //    if (o.length > 0) {
-//        include('js/jquery.vide.js');
+//        include('js/app/vendor/jquery.vide.js');
 //        $(document).ready(function () {
 //            o.wrapInner('<div class="vide__body"></div>');
 //        });

@@ -260,6 +260,9 @@ form .input-group-addon {
     .brand-name {
         font-size: 26px;
     }
+    .add-buttons{
+        display: none;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
@@ -320,4 +323,32 @@ form .row {
 label.required::after {
     color: red;
     content: " *";
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.btn-file .vich-file{
+    display: none
+}
+.ben-color{
+    color: #75992e;
+}
+.product.tumbnail {
+    background-color: #fff;
 }

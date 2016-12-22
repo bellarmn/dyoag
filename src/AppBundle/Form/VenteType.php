@@ -37,9 +37,8 @@ class VenteType extends AbstractType {
                 ))
                 ->add('lieu')
                 ->add('quantite')
-                ->add('measure', EntityType::class, array(
-                    'class' => 'AppBundle:Measure',
-                    'label' => 'Unité de mesure',
+                ->add('measure', ChoiceType::class, array(
+                    // 'class' => null,
                     'required' => true,
                     'placeholder' => 'Unités de mesures'
                 ))
