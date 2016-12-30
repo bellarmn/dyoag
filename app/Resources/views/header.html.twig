@@ -59,10 +59,10 @@
                         <li><a href="#">A propos</a></li>
                         <li><a href="{{ path('market_index') }}">Le Marché</a></li>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li class="dropdown">
+                            <li class="rd-navbar--has-dropdown rd-navbar-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-user"> </i>  Mon Stand <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                    <i class="fa fa-user"> </i>  Mon Stand </a>
+                                <ul class="rd-navbar-dropdown">
                                     <li>  <a href="{{ path('dashboard_mesoffres') }}"> <i class="fa fa-share-alt" aria-hidden="true"> </i> Mes offres</a></li>
                                     <li>  <a href="{{ path('dashboard_mesdemandes') }}"> <i class="fa fa-hand-o-right" aria-hidden="true"> </i> Mes demandes</a></li>
                                     <li>  <a href="{{ path('dashboard_souscriptionsviews') }}"> <i class="fa fa-gears" aria-hidden="true"> </i> Mes souscriptions</a></li>
@@ -74,6 +74,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <span class="rd-navbar-submenu-toggle"></span>
                             </li>
                          {% include 'dashboard/moncompte/notification/notification_dropdown.html.twig'  %}
                         {% else %}

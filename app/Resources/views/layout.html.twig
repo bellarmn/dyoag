@@ -9,9 +9,9 @@
         <meta name="author" content="">
         <meta name="google-site-verification" content="zyg8ij8y2IbROZx5KyFDfCh1w7J0cFEIuzzai0mXfsI" />
         <title>{% block title %}Benin Agro Business{% endblock %}</title>
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora">
         <link rel="stylesheet" href="{{ asset('assets/css/benagro.min.css') }}">
-
         {% block stylesheets %}
 
             <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -108,6 +108,8 @@
 
         <script src="{{ asset('assets/js/benagro.min.js') }}"></script>
         <script src="{{ asset('/js/app/vendor/device.min.js') }}"></script>
+        <!-- Core Scripts -->
+        <script src="{{ asset('/js/app/vendor/core.min.js') }}"></script>
         <script src="{{ asset('assets/js/requirejs.js') }}"></script>
         <script src="{{ asset('js/app/main.js') }}"></script>
         {# inclusion de deux scripts pour résoudre le problème d'erreur 404 de fosjsrouting qui ne marchait pas#}
