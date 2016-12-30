@@ -1,0 +1,135 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 19 déc. 2014, 09:19:43
+    Author     : Jacques Adjahoungbo
+*/
+
+.add-buttons {
+    position: fixed;
+    top: 130px;
+    width: 45px;
+    z-index: 9999;
+}
+.button-left {
+    left: 0;
+}
+.button-right {
+    right: 0;
+}
+.add-buttons #vente-btn .add-icon,
+.add-buttons #google-btn .add-icon,
+.add-buttons #rss-btn .add-icon,
+.add-buttons #pinterest-btn .add-icon,
+.add-buttons #youtube-btn .add-icon {
+    /*    background-color: #fff;*/
+    background-color: transparent;
+    background-image: url(/assets/images/plus-btn.png);
+}
+.add-buttons #demand-btn .add-icon
+{
+    background-color: transparent;
+    background-image: url(/assets/images/add_demand.png);
+}
+.button-left #demand-btn span {
+    background-position: right -35px;
+}
+.button-left #vente-btn span {
+    background-position: right -35px;
+}
+.button-left #google-btn span {
+    background-position: right -127px;
+}
+.button-left #rss-btn span {
+    background-position: right -80px;
+}
+.button-left #pinterest-btn span {
+    background-position: 11px -177px;
+}
+.button-left #youtube-btn span {
+    background-position: 11px -223px;
+}
+/*.button-right #demand-btn span {
+    background-position: 12px 10px;
+}*/
+/*.button-right #vente-btn span {
+    background-position: 11px -35px;
+}*/
+.button-right #google-btn span {
+    background-position: 10px -127px;
+}
+.button-right #rss-btn span {
+    background-position: 11px -80px;
+}
+.button-right #pinterest-btn span {
+    background-position: 11px -177px;
+}
+.button-right #youtube-btn span {
+    background-position: 11px -223px;
+}
+.add-buttons #demand-btn:hover .add-icon {
+    /*    background-color: #3B5998;*/
+    background-color: #0054A6;
+}
+.add-buttons #vente-btn:hover .add-icon {
+    /*    background-color: #62BDB2;*/
+    /*    background-color: #00AEEF;*/
+    background-color: #75992e
+}
+.add-buttons #google-btn:hover .add-icon {
+    background-color: #DB4A39;
+}
+.add-buttons #rss-btn:hover .add-icon {
+    background-color: #FF8B0F;
+}
+.add-buttons #pinterest-btn:hover .add-icon {
+    background-color: #D43638;
+}
+.add-buttons #youtube-btn:hover .add-icon {
+    background-color: #C4302B;
+}
+.add-buttons a:hover .add-text {
+    display: block;
+}
+.button-left .add-icon {
+    -moz-transition: background-color 0.4s ease-in 0s;
+    -webkit-transition: background-color 0.4s ease-in 0s;
+    background-repeat: no-repeat;
+    display: block;
+    float: left;
+    height: 43px;
+    margin-bottom: 2px;
+    width: 43px;
+}
+.button-left .add-text {
+    display: none;
+    float: right;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 11px 40px 11px 0px;
+    white-space: nowrap;
+}
+.button-right .add-icon {
+    -moz-transition: background-color 0.4s ease-in 0s;
+    -webkit-transition: background-color 0.4s ease-in 0s;
+    background-repeat: no-repeat;
+    display: block;
+    float: right;
+    height: 43px;
+    margin-bottom: 2px;
+    width: 43px;
+}
+.button-right .add-text {
+    display: none;
+    float: left;
+    font-size: 80%;
+    font-weight: bold;
+    margin: 11px 0 11px 50px;
+    white-space: nowrap;
+}
+.add-buttons .add-text {
+    color: #FFFFFF;
+}

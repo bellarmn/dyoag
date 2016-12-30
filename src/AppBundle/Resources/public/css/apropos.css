@@ -1,0 +1,113 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27 déc. 2016, 18:06:08
+    Author     : fadonougbo
+*/
+div {
+    display: block;
+}
+
+body {
+    height: auto;
+    min-height: 100%;
+    position: relative;
+    text-align: justify;
+    font-family: os,sans-serif;
+}
+.note-editable font, .note-editable p, .note-editable span, .std font, .std p, .std span {
+    font-size: 14px!important;
+    line-height: 1.6!important;
+    text-align: justify;
+}
+.note-editable, .std {
+    font-size: 14px!important;
+    color: #5d5954;
+    font-family: os,sans-serif;
+}
+.note-editable, .note-editable p, .std, .std p {
+    font-family: os,sans-serif!important;
+}
+.note-editable h2, .std h2 {
+    font-size: 28px;
+    background: url(../images/title-border.jpg) left bottom no-repeat;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border: none;
+    font-family: os,sans-serif;
+    color: #5d5954;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: 400;
+}
+.note-editable, .note-editable p, .std, .std p {
+    font-family: os,sans-serif!important;
+}
+blockquote, ol, p, ul {
+    margin: 0;
+}
+.note-editable h4, .std h4 {
+    font-family: os-bold,sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    /*margin: 10px 0;*/
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+.note-editable font, .note-editable p, .note-editable span, .std font, .std p, .std span {
+    font-size: 14px!important;
+    line-height: 1.6!important;
+    text-align: justify;
+}
+.note-editable p, .std p {
+    margin-bottom: 10px;
+    margin-top: 5px!important;
+}
+
+.note-editable, .note-editable p, .std, .std p {
+    font-family: os,sans-serif!important;
+}
+blockquote, ol, p, ul {
+    margin: 0;
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.note-editable b, .note-editable strong, .std b, .std strong {
+    font-family: os-bold,sans-serif!important;
+    font-weight: 700;
+}
+u, ins {
+    text-decoration: underline;
+}
+.note-editable h4 u, .std h4 u {
+    text-decoration: none!important;
+}
+.note-editable h4 font, .note-editable h4 span, .std h4 font, .std h4 span {
+    font-size: 18px!important;
+    color: #6abd26!important;
+    text-decoration: none!important;
+}
+.note-editable font, .note-editable p, .note-editable span, .std font, .std p, .std span {
+    line-height: 1.6!important;
+    text-align: justify;
+}
+.note-editable span, .std span {
+    font-family: os,sans-serif!important;
+}
