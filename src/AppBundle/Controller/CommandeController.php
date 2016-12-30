@@ -53,6 +53,13 @@ class CommandeController extends Controller
             return $this->redirectToRoute('commande_show', array('id' => $commande->getId()));
         }
 
+        //notification interne de l'action
+            if ( $commande->getVente()->getUser()->getNotificationOrder() ) {
+                    $this->sendNotification($this->getUser(), $commande->getVente()->getUser(), 'BeAgrio - Nouvelle commande ', 'Une nouvelle commande vous a été adressée. Cliquez ici : ', $this->generateUrl('dashboard_commandesviews'), 'order');
+             $this->notifierMessageExterne('contact@beagrio.com', $commande->getVente()->getUser()->getEmail(), 'BeAgrio - Nouvelle commande ', 'Cliquez ici '.$this->generateUrl('dashboard_commandesviews').' pour voir le détail');
+                    
+            }
+            
         return $this->render('commande/new.html.twig', array(
             'commande' => $commande,
             'form' => $form->createView(),
@@ -137,4 +144,67 @@ class CommandeController extends Controller
             ->getForm()
         ;
     }
+    
+      private function sendNotification($emetteur, $recepteur, $title, $contenu, $link, $type) {
+
+        //notification interne
+        $manager = $this->get('mgilet.notification');
+        $notif = $manager->generateNotification($title);
+        $notif->setMessage($contenu);
+        $notif->setEmetteur($emetteur);
+
+        if ($type == 'offre') {
+            $notif->setNotificationVente(true);
+        }
+        if ($type == 'demand') {
+            $notif->setNotificationDemand(true);
+        }
+        if ($type == 'order') {
+            $notif->setNotificationOrder(true);
+        }
+        if ($type == 'supply') {
+            $notif->setNotificationSupply(true);
+        }
+
+        $notif->setLink($link);
+        $manager->addNotification($recepteur, $notif);
+
+        return;
+    }
+
+    private function notifierMessageInterne($recepteur, $title, $contenu, $type) {
+        //notification interne
+        // Créer le message
+        $composer = $this->get('fos_message.composer');
+        $message = $composer->newThread()
+                ->setSender($this->getUser())
+                ->addRecipient($recepteur)
+                ->setSubject($title);
+//                if($type=='offre'){ $message->setIsoffre(true);}
+//                if($type=='demand'){ $message->setIsdemand(true);}
+//                if($type=='order'){ $message->setIsorder(true);}
+//                if($type=='supply'){ $message->setIssupply(true);}
+        $message->setBody($contenu)
+                ->getMessage();
+        // Envoie le message
+        $sender = $this->get('fos_message.sender');
+        $sender->send($message);
+        return;
+    }
+
+    private function notifierMessageExterne($experditeur, $recepteur, $title, $contenu) {
+
+        //notification externe
+        //envoi d'email
+        $message = \Swift_Message::newInstance()
+                ->setSubject($title)
+                ->setFrom(array($experditeur => "BeAgrio"))
+                ->setTo($recepteur)
+                ->setCharset('utf-8')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('dashboard/moncompte/sendNotification.html.twig', array('contenu' => $contenu)));
+        $this->get('mailer')->send($message);
+        //fin d'envoi d'email
+    }
+    
 }

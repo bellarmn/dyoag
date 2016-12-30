@@ -65,13 +65,15 @@ class DemandController extends Controller {
             $this->addFlash(
                     'success', "Votre demande d'approvisionnement a été bien enregistrée!"
             );
+            
             //notification interne de l'action
-            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            $users = $em->getRepository('AppBundle\Entity\User\User')
+                     ->findBy(array('enabled' => true, 'notificationDemand' => true));
             foreach ($users as $user) {
-                if ($user->getNotificationDemand()) {
-                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication de demande ', 'Une demande d\'appel d\'offre a été lancée depuis BenAgro !!! ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
-                }
+                    $this->sendNotification($this->getUser(), $user, 'BeAgrio - Nouvelle Publication de demande ', 'Une Nouvelle Demande a été Publiée. ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
+                    $this->notifierMessageExterne('contact@beagrio.com', $user->getEmail(), 'BeAgrio - Nouvelle Publication de demande  ', 'Cliquez ici '.$this->generateUrl('demand_show', array('id' => $demand->getId())).' pour voir le détail');
             }
+            
             return $this->redirectToRoute('demand_index');
         }
 
@@ -201,7 +203,7 @@ class DemandController extends Controller {
         ));
     }
 
-    private function sendNotification($emetteur, $recepteur, $title, $contenu, $link, $type) {
+     private function sendNotification($emetteur, $recepteur, $title, $contenu, $link, $type) {
 
         //notification interne
         $manager = $this->get('mgilet.notification');
@@ -254,7 +256,7 @@ class DemandController extends Controller {
         //envoi d'email
         $message = \Swift_Message::newInstance()
                 ->setSubject($title)
-                ->setFrom($experditeur)
+                ->setFrom(array($experditeur => "BeAgrio"))
                 ->setTo($recepteur)
                 ->setCharset('utf-8')
                 ->setContentType('text/html')

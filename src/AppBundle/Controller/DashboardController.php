@@ -287,11 +287,12 @@ class DashboardController extends Controller {
             $vente->setCanceledReason(null);
             $em->flush();
             //notification interne de l'action
-            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            $users = $em->getRepository('AppBundle\Entity\User\User')
+                     ->findBy(array('enabled' => true, 'notificationVente' => true));
             foreach ($users as $user) {
-                if ($user->getNotificationVente()) {
-                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication d\'offre ', 'Une offre a été Publiée depuis BenAgro !!! ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
-                }
+                    $this->sendNotification($this->getUser(), $user, 'BeAgrio - Publication d\'offre ', 'Une offre a été Publiée. ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
+                    $this->notifierMessageExterne('contact@beagrio.com', $user->getEmail(), 'BeAgrio - Publication d\'offre ', 'Cliquez ici '.$this->generateUrl('vente_show', array('id' => $vente->getId())).' pour voir le détail');
+                    
             }
             return $this->redirectToRoute('dashboard_mesoffres');
         }
@@ -315,11 +316,12 @@ class DashboardController extends Controller {
             $vente->setPublished(true);
             $em->flush();
             //notification interne de l'action
-            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            $users = $em->getRepository('AppBundle\Entity\User\User')
+                     ->findBy(array('enabled' => true, 'notificationVente' => true));
             foreach ($users as $user) {
-                if ($user->getNotificationVente()) {
-                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Relance d\'offre ', 'Une offre expirée a été relancée depuis BenAgro !!! ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
-                }
+                    $this->sendNotification($this->getUser(), $user, 'BeAgrio - Relance d\'offre ', 'Une offre expirée a été Relancée. ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
+                    $this->notifierMessageExterne('contact@beagrio.com', $user->getEmail(), 'BeAgrio - Relance d\'offre  ', 'Cliquez ici '.$this->generateUrl('vente_show', array('id' => $vente->getId())).' pour voir le détail');
+                    
             }
             return $this->redirectToRoute('dashboard_mesoffres');
         }
@@ -355,14 +357,13 @@ class DashboardController extends Controller {
             $cmde->setAcceptedAt(new \DateTime());
             $cmde->setAccepted(true);
             $em->flush();
+            
             //notification interne de l'action
-//            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
-//            foreach ($users as $user) {
-            if ($user->getNotificationOrder()) {
-                $this->sendNotification($this->getUser(), $cmde->getVente()->getUser(), 'BenAgro - Commande approuvée ', 'Votre commande a été approuvée par votre fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
-                $this->sendNotification($cmde->getVente()->getUser(), $this->getUser(), 'BenAgro - Commande approuvée ', 'Votre commande a été approuvée par votre fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
+            if ( $cmde->getUser()->getNotificationOrder() ) {
+                    $this->sendNotification($this->getUser(), $cmde->getUser(), 'BeAgrio - Approbation de commande ', 'Votre commande a été approuvée. Cliquez ici : ', $this->generateUrl('commande_show', array('id' => $cmde->getVente()->getId())), 'order');
+             $this->notifierMessageExterne('contact@beagrio.com', $user->getEmail(), 'BeAgrio - Approbation de commande   ', 'Cliquez ici '.$this->generateUrl('vente_show', array('id' => $cmde->getVente()->getId())).' pour voir le détail');
+                    
             }
-//            }
             return $this->redirectToRoute('dashboard_commandesoffre', array(
                         'id' => $cmde->getVente()->getId(),
             ));
@@ -614,12 +615,14 @@ class DashboardController extends Controller {
             $demand->setCanceled(false);
             $demand->setCanceledReason(null);
             $em->flush();
+          
             //notification interne de l'action
-            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+            $users = $em->getRepository('AppBundle\Entity\User\User')
+                     ->findBy(array('enabled' => true, 'notificationDemand' => true));
             foreach ($users as $user) {
-                if ($user->getNotificationDemand()) {
-                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication de demande ', 'Une demande d\'appel d\'offre a été lancée depuis BenAgro !!! ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
-                }
+                    $this->sendNotification($this->getUser(), $user, 'BeAgrio - Publication de demande ', 'Une Demande a été Publiée. ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
+                    $this->notifierMessageExterne('contact@beagrio.com', $user->getEmail(), 'BeAgrio - Publication de demande  ', 'Cliquez ici '.$this->generateUrl('demand_show', array('id' => $demand->getId())).' pour voir le détail');
+                    
             }
             return $this->redirectToRoute('dashboard_mesdemandes');
         }
@@ -641,12 +644,14 @@ class DashboardController extends Controller {
             $demand->getDateLimitUpdate()->add(new \DateInterval('P30D'));
             $demand->getDateLimit()->add(new \DateInterval('P30D'));
             $demand->setPublished(true);
-            //notification interne de l'action
-            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+          
+             //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')
+                     ->findBy(array('enabled' => true, 'notificationDemand' => true));
             foreach ($users as $user) {
-                if ($user->getNotificationDemand()) {
-                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Relance de demande ', 'Une demande d\'appel d\'offre expirée a été relancée depuis BenAgro !!! ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
-                }
+                    $this->sendNotification($this->getUser(), $user, 'BeAgrio - Relance d\'une demande expirée', 'Une Demande a été Publiée. ', $this->generateUrl('demand_show', array('id' => $demand->getId())), 'demand');
+                    $this->notifierMessageExterne('contact@beagrio.com', $user->getEmail(), 'BeAgrio - Relance d\'une demande expirée', 'Cliquez ici '.$this->generateUrl('demand_show', array('id' => $demand->getId())).' pour voir le détail');
+                    
             }
             $em->flush();
             return $this->redirectToRoute('dashboard_mesdemandes');
@@ -684,13 +689,11 @@ class DashboardController extends Controller {
             $sous->setAccepted(true);
             $em->flush();
             //notification interne de l'action
-//            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
-//            foreach ($users as $user) {
-            if ($user->getNotificationSupply()) {
-                $this->sendNotification($this->getUser(), $sous->getDemand()->getUser(), 'BenAgro - Confirmation de souscription à une demande ', 'Votre demande d\'appel d\'offre a été souscrite par un fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
-                $this->sendNotification($sous->getDemand()->getUser(), $this->getUser(), 'BenAgro - Confirmation de souscription à une demande ', 'Votre demande d\'appel d\'offre a été souscrite par un fournisseur depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
+            if ( $sous->getDemand()->getUser()->getNotificationSupply() ) {
+                    $this->sendNotification($this->getUser(), $sous->getDemand()->getUser(), 'BeAgrio - Approbation d\'une souscription ', 'Votre souscription a été approuvée. Cliquez ici : ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
+             $this->notifierMessageExterne('contact@beagrio.com', $sous->getDemand()->getUser()->getEmail(), 'BeAgrio - Approbation d\'une souscription  ', 'Cliquez ici '.$this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())).' pour voir le détail');
+                    
             }
-//            }
             return $this->redirectToRoute('dashboard_souscriptionsdemande', array(
                         'id' => $sous->getDemand()->getId(),
             ));
@@ -774,9 +777,12 @@ class DashboardController extends Controller {
             $supply->setRating($request->get('rating'));
             $supply->setDeliverConclusion($request->get('deliverConclusion'));
             $em->flush();
-            if ($user->getNotificationSupply()) {
-                $this->sendNotification($this->getUser(), $sous->getDemand()->getUser(), 'BenAgro - Conclusion d\'une souscription ', 'Votre demande d\'appel d\'offre souscrite a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
-                $this->sendNotification($sous->getDemand()->getUser(), $this->getUser(), 'BenAgro - Conclusion d\'une souscription ', 'Votre demande d\'appel d\'offre souscrite a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_souscriptionsdemande', array('id' => $sous->getDemand()->getId())), 'supply');
+            
+            //notification interne de l'action
+            if ( $supply->getDemand()->getUser()->getNotificationSupply() ) {
+                    $this->sendNotification($this->getUser(), $supply->getDemand()->getUser(), 'BeAgrio - Conclusion d\'une souscription ', 'La souscription du fournisseur a été conclue. Cliquez ici : ', $this->generateUrl('dashboard_souscriptionsviews'), 'supply');
+             $this->notifierMessageExterne('contact@beagrio.com', $supply->getDemand()->getUser()->getEmail(), 'BeAgrio - Conclusion d\'une souscription ', 'Cliquez ici '.$this->generateUrl('dashboard_souscriptionsviews').' pour voir le détail');
+                    
             }
             return $this->redirectToRoute('dashboard_souscriptionsviews');
         }
@@ -859,12 +865,13 @@ class DashboardController extends Controller {
             $order->setRating($request->get('rating'));
             $order->setDeliverConclusion($request->get('deliverConclusion'));
             $em->flush();
-            if ($this->getUser()->getNotificationOrder()) {
-                $this->sendNotification($cmde->getVente()->getUser(), $this->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La commande approuvée de votre client a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
+            
+            //notification interne de l'action
+            if ( $order->getVente()->getUser()->getNotificationOrder() ) {
+                    $this->sendNotification($this->getUser(), $order->getVente()->getUser(), 'BeAgrio - Conclusion d\'une commande ', 'La commande du client a été conclue. Cliquez ici : ', $this->generateUrl('dashboard_commandesviews'), 'order');
+             $this->notifierMessageExterne('contact@beagrio.com', $order->getVente()->getUser()->getEmail(), 'BeAgrio - Conclusion d\'une commande ', 'Cliquez ici '.$this->generateUrl('dashboard_commandesviews').' pour voir le détail');
+                    
             }
-            if ($cmde->getVente()->getUser()->getNotificationOrder()) {
-                $this->sendNotification($this->getUser(), $cmde->getVente()->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La conclusion de votre commande a été enregistrée avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $cmde->getVente()->getId())), 'order');
-              }
             return $this->redirectToRoute('dashboard_commandesviews');
         }
     }
@@ -922,7 +929,7 @@ class DashboardController extends Controller {
         //envoi d'email
         $message = \Swift_Message::newInstance()
                 ->setSubject($title)
-                ->setFrom($experditeur)
+                ->setFrom(array($experditeur => "BeAgrio"))
                 ->setTo($recepteur)
                 ->setCharset('utf-8')
                 ->setContentType('text/html')
