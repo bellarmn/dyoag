@@ -52,7 +52,7 @@ class DefaultController extends Controller {
     }
     
     /**
-     * @Route("/conditions", name="conditions")
+     * @Route("/conditions-d-utilisation", name="conditions")
      * @Template()
      * @Cache(smaxage="600", public="true")
      */
