@@ -185,25 +185,25 @@ class User extends BaseUser implements ParticipantInterface, UserNotificationInt
      * @var notificationVente boolean. 
      * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
      */
-    private $notificationVente = false;
+    private $notificationVente = true;
         
     /**
      * @var notificationDemand boolean. 
      * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
      */
-    private $notificationDemand = false;
+    private $notificationDemand = true;
         
     /**
      * @var notificationSupply boolean. 
      * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
      */
-    private $notificationSupply = false;
+    private $notificationSupply = true;
         
     /**
      * @var notificationOrder boolean. 
      * @ORM\Column(type="boolean", options={"default" : false}, nullable=true)
      */
-    private $notificationOrder = false;
+    private $notificationOrder = true;
 
     public function __construct() {
         parent::__construct();

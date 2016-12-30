@@ -71,12 +71,13 @@ class VenteController extends Controller {
             $this->addFlash(
                     'success', "Votre offre de produit a été bien enregistré!"
             );
-            //notification interne de l'action
-            $users = $em->getRepository('AppBundle\Entity\User\User')->findAll();
+           //notification interne de l'action
+            $users = $em->getRepository('AppBundle\Entity\User\User')
+                     ->findBy(array('enabled' => true, 'notificationVente' => true));
             foreach ($users as $user) {
-                if ($user->getNotificationVente()) {
-                    $this->sendNotification($this->getUser(), $user, 'BenAgro - Publication d\'offre ', 'Une offre a été Publiée depuis BenAgro !!! ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
-                }
+                    $this->sendNotification($this->getUser(), $user, 'BeAgrio - Nouvelle Publication d\'offre ', 'Une offre a été Publiée. ', $this->generateUrl('vente_show', array('id' => $vente->getId())), 'offre');
+                    $this->notifierMessageExterne('contact@beagrio.com', $user->getEmail(), 'BeAgrio - Nouvelle Publication d\'offre ', 'Cliquez ici '.$this->generateUrl('vente_show', array('id' => $vente->getId())).' pour voir le détail');
+                    
             }
             return $this->redirectToRoute('market_index');
         }
@@ -114,12 +115,13 @@ class VenteController extends Controller {
             $this->addFlash(
                     'success_dash', "Votre commande a été bien enregistrée!"
             );
-             if ($this->getUser()->getNotificationOrder()) {
-                $this->sendNotification($commande->getVente()->getUser(), $this->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La commande approuvée de votre client a été conclue avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $commande->getVente()->getId())), 'order');
+            
+            //notification interne de l'action
+            if ( $commande->getVente()->getUser()->getNotificationOrder() ) {
+                    $this->sendNotification($this->getUser(), $commande->getVente()->getUser(), 'BeAgrio - Nouvelle commande ', 'Un client a envoyé une nouvelle commande. Cliquez ici : ', $this->generateUrl('dashboard_commandesviews'), 'order');
+             $this->notifierMessageExterne('contact@beagrio.com', $commande->getVente()->getUser()->getEmail(), 'BeAgrio - Nouvelle commande ', 'Cliquez ici '.$this->generateUrl('dashboard_commandesviews').' pour voir le détail');
+                    
             }
-            if ($commande->getVente()->getUser()->getNotificationOrder()) {
-                $this->sendNotification($this->getUser(), $commande->getVente()->getUser(), 'BenAgro - Conclusion d\'une Commande approuvée ', 'La conclusion de votre commande a été enregistrée avec succès depuis BenAgro !!! ', $this->generateUrl('dashboard_commandesoffre', array('id' => $commande->getVente()->getId())), 'order');
-              }
             return $this->redirectToRoute('dashboard_commandesviews');
         }
 
@@ -364,7 +366,7 @@ class VenteController extends Controller {
         //envoi d'email
         $message = \Swift_Message::newInstance()
                 ->setSubject($title)
-                ->setFrom($experditeur)
+                ->setFrom(array($experditeur => "BeAgrio"))
                 ->setTo($recepteur)
                 ->setCharset('utf-8')
                 ->setContentType('text/html')

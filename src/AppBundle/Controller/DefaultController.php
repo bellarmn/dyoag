@@ -39,6 +39,28 @@ class DefaultController extends Controller {
              
         ]);
     }
+    
+    /**
+     * @Route("/apropos", name="apropos")
+     * @Template()
+     * @Cache(smaxage="600", public="true")
+     */
+    public function aproposAction(Request $request) {
+        //  Message a envoyer en cas d'erreur
+        
+        return $this->render('default/apropos.html.twig');
+    }
+    
+    /**
+     * @Route("/conditions", name="conditions")
+     * @Template()
+     * @Cache(smaxage="600", public="true")
+     */
+    public function conditionsAction(Request $request) {
+        //  Message a envoyer en cas d'erreur
+        
+        return $this->render('default/conditions.html.twig');
+    }
 
 //implementation of Server Sent Event (SSE) with StreamedResponse
     public function notificationAction() {

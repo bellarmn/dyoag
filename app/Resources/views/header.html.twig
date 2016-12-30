@@ -30,7 +30,7 @@
 
                     <!--RD Navbar Brand-->
                     <div class="rd-navbar-brand">
-                        <a class="brand-name" href="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} {{ path('dashboard_index')}} {% else %} {{ path('homepage') }} {% endif %}">BenAgro<span>agriculteurs-acheteurs</span></a>
+                        <a class="brand-name" href="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} {{ path('dashboard_index')}} {% else %} {{ path('homepage') }} {% endif %}">BeAgrio<span>agriculteurs-acheteurs</span></a>
                     </div>
                     <!--END RD Navbar Brand-->
                 </div>
@@ -56,7 +56,7 @@
                     <!--RD Navbar Nav-->
                     <ul class="rd-navbar-nav">
                         <li class=""><a href="{{ path('homepage') }}">Accueil</a></li>
-                        <li><a href="#">A propos</a></li>
+                        <li><a href="{{ path('apropos') }}">A propos</a></li>
                         <li><a href="{{ path('market_index') }}">Le Marché</a></li>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li class="rd-navbar--has-dropdown rd-navbar-submenu">
