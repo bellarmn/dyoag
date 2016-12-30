@@ -30,7 +30,7 @@
 
                     <!--RD Navbar Brand-->
                     <div class="rd-navbar-brand">
-                        <a class="brand-name" href="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} {{ path('dashboard_index')}} {% else %} {{ path('homepage') }} {% endif %}">BeAgrio<span>agriculteurs-acheteurs</span></a>
+                        <a class="brand-name" href="{{ path('homepage') }}">BeAgrio<span>agriculteurs-acheteurs</span></a>
                     </div>
                     <!--END RD Navbar Brand-->
                 </div>
@@ -63,6 +63,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-user"> </i>  Mon Stand </a>
                                 <ul class="rd-navbar-dropdown">
+                                    <li>  <a href="{{ path('dashboard_index')}}"> <i class="fa fa-share-alt" aria-hidden="true"> </i> Tableau de board</a></li>
                                     <li>  <a href="{{ path('dashboard_mesoffres') }}"> <i class="fa fa-share-alt" aria-hidden="true"> </i> Mes offres</a></li>
                                     <li>  <a href="{{ path('dashboard_mesdemandes') }}"> <i class="fa fa-hand-o-right" aria-hidden="true"> </i> Mes demandes</a></li>
                                     <li>  <a href="{{ path('dashboard_souscriptionsviews') }}"> <i class="fa fa-gears" aria-hidden="true"> </i> Mes souscriptions</a></li>
