@@ -3,8 +3,6 @@ $(window).load(function () {
     $(".se-pre-con").fadeOut("slow");
 });
 
-
-
 function include(scriptUrl) {
     document.write('<script src="' + scriptUrl + '"></script>');
 }
@@ -21,29 +19,29 @@ function isIE() {
     });
 })($);
 ;
-(function($) {
-    if (isIE() && isIE() < 11) {
-        include('/js/app/vendor/pointer-events.min.js');
-        $('html').addClass('lt-ie11');
-        $(document).ready(function() {
-            PointerEventsPolyfill.initialize({});
-        });
-    }
-    if (isIE() && isIE() < 10) {
-        $('html').addClass('lt-ie10');
-    }
-})($);
-;
-(function($) {
-    var o = $('html');
-    if (o.hasClass('desktop') && o.hasClass("wow-animation") && $(".wow").length) {
-        include('/js/app/vendor/wow.min.js');
-        $(document).ready(function() {
-            new WOW().init();
-        });
-    }
-})($);
-;
+//(function($) {
+//    if (isIE() && isIE() < 11) {
+//        include('/js/app/vendor/pointer-events.min.js');
+//        $('html').addClass('lt-ie11');
+//        $(document).ready(function() {
+//            PointerEventsPolyfill.initialize({});
+//        });
+//    }
+//    if (isIE() && isIE() < 10) {
+//        $('html').addClass('lt-ie10');
+//    }
+//})($);
+//;
+//(function($) {
+//    var o = $('html');
+//    if (o.hasClass('desktop') && o.hasClass("wow-animation") && $(".wow").length) {
+//        include('/js/app/vendor/wow.min.js');
+//        $(document).ready(function() {
+//            new WOW().init();
+//        });
+//    }
+//})($);
+//;
 (function($) {
     if ($("html").hasClass("smoothscroll")) {
         include('/js/app/vendor/smoothscroll.min.js');
@@ -57,43 +55,43 @@ function isIE() {
 })($);
 
 (function($) {
-    //var o = $('html');
-    //if (o.hasClass('desktop')) {
+    var o = $('html');
+    if (o.hasClass('desktop')) {
         include('/js/app/vendor/jquery.ui.totop.min.js');
         $(document).ready(function() {
             $().UItoTop({easingType: 'easeOutQuart', containerClass: 'ui-to-top fl-bigmug-line-up107'});
         });
-    //}
-})($);
-;
-(function($) {
-    var o = $('.responsive-tabs');
-    if (o.length > 0) {
-        include('/js/app/vendor/jquery.easy-responsive-tabs.min.js');
-        $(document).ready(function() {
-            o.each(function() {
-                var $this = $(this);
-                $this.easyResponsiveTabs({type: $this.attr("data-type") === "accordion" ? "accordion" : "default"});
-            })
-        });
     }
 })($);
 ;
-(function($) {
-    var o = document.getElementById("google-map");
-    if (o) {
-        include('//maps.google.com/maps/api/js?sensor=false');
-        include('/js/app/vendor/jquery.rd-google-map.js');
-        $(document).ready(function() {
-            var o = $('#google-map');
-            if (o.length > 0) {
-                o.googleMap({styles: [{"featureType": "landscape", "stylers": [{"hue": "#FFBB00"}, {"saturation": 43.400000000000006}, {"lightness": 37.599999999999994}, {"gamma": 1}]}, {"featureType": "road.highway", "stylers": [{"hue": "#FFC200"}, {"saturation": -61.8}, {"lightness": 45.599999999999994}, {"gamma": 1}]}, {"featureType": "road.arterial", "stylers": [{"hue": "#FF0300"}, {"saturation": -100}, {"lightness": 51.19999999999999}, {"gamma": 1}]}, {"featureType": "road.local", "stylers": [{"hue": "#FF0300"}, {"saturation": -100}, {"lightness": 52}, {"gamma": 1}]}, {"featureType": "water", "stylers": [{"hue": "#0078FF"}, {"saturation": -13.200000000000003}, {"lightness": 2.4000000000000057}, {"gamma": 1}]}, {"featureType": "poi", "stylers": [{"hue": "#00FF6A"}, {"saturation": -1.0989010989011234}, {"lightness": 11.200000000000017}, {"gamma": 1}]}]});
-            }
-        });
-    }
-})
-        ($);
-;
+//(function($) {
+//    var o = $('.responsive-tabs');
+//    if (o.length > 0) {
+//        include('/js/app/vendor/jquery.easy-responsive-tabs.min.js');
+//        $(document).ready(function() {
+//            o.each(function() {
+//                var $this = $(this);
+//                $this.easyResponsiveTabs({type: $this.attr("data-type") === "accordion" ? "accordion" : "default"});
+//            })
+//        });
+//    }
+//})($);
+//;
+//(function($) {
+//    var o = document.getElementById("google-map");
+//    if (o) {
+//        include('//maps.google.com/maps/api/js?sensor=false');
+//        include('/js/app/vendor/jquery.rd-google-map.js');
+//        $(document).ready(function() {
+//            var o = $('#google-map');
+//            if (o.length > 0) {
+//                o.googleMap({styles: [{"featureType": "landscape", "stylers": [{"hue": "#FFBB00"}, {"saturation": 43.400000000000006}, {"lightness": 37.599999999999994}, {"gamma": 1}]}, {"featureType": "road.highway", "stylers": [{"hue": "#FFC200"}, {"saturation": -61.8}, {"lightness": 45.599999999999994}, {"gamma": 1}]}, {"featureType": "road.arterial", "stylers": [{"hue": "#FF0300"}, {"saturation": -100}, {"lightness": 51.19999999999999}, {"gamma": 1}]}, {"featureType": "road.local", "stylers": [{"hue": "#FF0300"}, {"saturation": -100}, {"lightness": 52}, {"gamma": 1}]}, {"featureType": "water", "stylers": [{"hue": "#0078FF"}, {"saturation": -13.200000000000003}, {"lightness": 2.4000000000000057}, {"gamma": 1}]}, {"featureType": "poi", "stylers": [{"hue": "#00FF6A"}, {"saturation": -1.0989010989011234}, {"lightness": 11.200000000000017}, {"gamma": 1}]}]});
+//            }
+//        });
+//    }
+//})
+//        ($);
+//;
 (function($) {
     var o = $('.rd-navbar');
     if (o.length > 0) {
@@ -223,197 +221,197 @@ function isIE() {
 //    }
 //})($);
 ;
-(function($) {
-    var o = $(".progress-bar-custom");
-    if (o.length) {
-        include('/js/app/vendor/progressbar.min.js');
-        function isScrolledIntoView(elem) {
-            var $window = $(window);
-            return elem.offset().top + elem.outerHeight() >= $window.scrollTop() && elem.offset().top <= $window.scrollTop() + $window.height();
-        }
-        $(document).ready(function() {
-            o.each(function() {
-                var bar, type;
-                if (this.className.indexOf("progress-bar-horizontal") > -1) {
-                    type = 'Line';
-                }
-                if (this.className.indexOf("progress-bar-radial") > -1) {
-                    type = 'Circle';
-                }
-                if (this.getAttribute("data-stroke") && this.getAttribute("data-value") && type) {
-                    bar = new ProgressBar[type](this, {strokeWidth: Math.round(parseFloat(this.getAttribute("data-stroke")) / this.offsetWidth * 100)
-                        , trailWidth: this.getAttribute("data-trail") ? Math.round(parseFloat(this.getAttribute("data-trail")) / this.offsetWidth * 100) : 0
-                        , text: {value: this.getAttribute("data-counter") === "true" ? '0' : null, className: 'progress-bar__body', style: null}});
-                    bar.svg.setAttribute('preserveAspectRatio', "none meet");
-                    if (type === 'Line') {
-                        bar.svg.setAttributeNS(null, "height", this.getAttribute("data-stroke"));
-                    }
-                    bar.path.removeAttribute("stroke");
-                    bar.path.className.baseVal = "progress-bar__stroke";
-                    if (bar.trail) {
-                        bar.trail.removeAttribute("stroke");
-                        bar.trail.className.baseVal = "progress-bar__trail";
-                    }
-                    if (this.getAttribute("data-easing") && !isIE()) {
-                        $(document).on("scroll", $.proxy(function() {
-                            if (isScrolledIntoView($(this)) && this.className.indexOf("progress-bar--animated") === -1) {
-                                console.log(1);
-                                this.className += " progress-bar--animated";
-                                bar.animate(parseInt(this.getAttribute("data-value")) / 100.0, {
-                                    easing: this.getAttribute("data-easing"), duration: this.getAttribute("data-duration") ? parseInt(this.getAttribute("data-duration")) : 800, step: function(state, b) {
-                                        if (b._container.className.indexOf("progress-bar-horizontal") > -1 || b._container.className.indexOf("progress-bar-vertical") > -1) {
-                                            b.text.style.width = Math.abs(b.value() * 100).toFixed(0) + "%"
-                                        }
-                                        b.setText(Math.abs(b.value() * 100).toFixed(0));
-                                    }});
-                            }
-                        }, this)).trigger("scroll");
-                    } else {
-                        bar.set(parseInt(this.getAttribute("data-value")) / 100.0);
-                        bar.setText(this.getAttribute("data-value"));
-                        if (type === 'Line') {
-                            bar.text.style.width = parseInt(this.getAttribute("data-value")) + "%";
-                        }
-                    }
-                } else {
-                    console.error(this.className + ": progress bar type is not defined");
-                }
-            });
-        });
-    }
-})($);
-;
-(function($) {
-    var o = $('.counter');
-    if (o.length > 0) {
-        include('/js/app/vendor/jquery.countTo.js');
-        $(document).ready(function() {
-            $(document).on("scroll", $.proxy(function() {
-                o.not('.animated').each(function() {
-                    var $this = $(this);
-                    var position = $this.offset().top;
-                    if (($(window).scrollTop() + $(window).height()) > position) {
-                        $this.countTo();
-                        $this.addClass('animated');
-                    }
-                });
-            }, $(this))).trigger("scroll");
-        });
-    }
-})($);
-;
-(function($) {
-    var o = $('.progress-bar');
-    if (o.length > 0) {
-        include('/js/app/vendor/jquery.counter.js');
-        $(document).ready(function() {
-            $(document).on("scroll", $.proxy(function() {
-                o.not('.animated').each(function() {
-                    var position = $(this).offset().top;
-                    if (($(window).scrollTop() + $(window).height()) > position) {
-                        var $this = $(this);
-                        var start = $this.attr("aria-valuemin");
-                        var end = $this.attr("aria-valuenow");
-                        $this.css({width: end + '%'});
-                        $this.parent().find('span').counter({start: start, end: end, time: 0.4, step: 20});
-                        $this.addClass('animated');
-                    }
-                });
-            }, $(this))).trigger("scroll");
-        });
-    }
-})($);
-;
-(function($) {
-    var o = $('.rd-parallax');
-    if (o.length) {
-        include('/js/app/vendor/jquery.rd-parallax.min.js');
-        $(document).ready(function() {
-            o.each(function() {
-                if (!$(this).parents(".swiper-slider").length) {
-                    $.RDParallax();
-                }
-            });
-        });
-    }
-})(jQuery);
-
-
-(function($) {
-    var o = $('.owl-carousel');
-    if (o.length) {
-        include('/js/app/vendor/jquery.owl-carousel.js');
-        var isTouch = "ontouchstart"in window;
-        function preventScroll(e) {
-            e.preventDefault();
-        }
-        $(document).ready(function() {
-            o.each(function() {
-                var c = $(this), responsive = {};
-                var aliaces = ["-", "-xs-", "-sm-", "-md-", "-lg-"], values = [0, 480, 768, 992, 1200], i, j;
-                for (i = 0; i < values.length; i++) {
-                    responsive[values[i]] = {};
-                    for (j = i; j >= -1; j--) {
-                        if (!responsive[values[i]]["items"] && c.attr("data" + aliaces[j] + "items")) {
-                            responsive[values[i]]["items"] = j < 0 ? 1 : parseInt(c.attr("data" + aliaces[j] + "items"));
-                        }
-                        if (!responsive[values[i]]["stagePadding"] && responsive[values[i]]["stagePadding"] !== 0 && c.attr("data" + aliaces[j] + "stage-padding")) {
-                            responsive[values[i]]["stagePadding"] = j < 0 ? 0 : parseInt(c.attr("data" + aliaces[j] + "stage-padding"));
-                        }
-                        if (!responsive[values[i]]["margin"] && responsive[values[i]]["margin"] !== 0 && c.attr("data" + aliaces[j] + "margin")) {
-                            responsive[values[i]]["margin"] = j < 0 ? 30 : parseInt(c.attr("data" + aliaces[j] + "margin"));
-                        }
-                    }
-                }
-                c.owlCarousel({autoplay: c.attr("data-autoplay") === "true", loop: c.attr("data-loop") !== "false", item: 1, mouseDrag: c.attr("data-mouse-drag") !== "false", nav: c.attr("data-nav") === "true", dots: c.attr("data-dots") === "true", dotsEach: c.attr("data-dots-each") ? parseInt(c.attr("data-dots-each")) : false, responsive: responsive, navText: [], onInitialized: function() {
-                        if ($.fn.magnificPopup) {
-                            var o = this.$element.attr('data-lightbox') !== "gallery", g = this.$element.attr('data-lightbox') === "gallery";
-                            if (o) {
-                                this.$element.each(function() {
-                                    var $this = $(this);
-                                    $this.magnificPopup({type: $this.attr("data-lightbox"), callbacks: {open: function() {
-                                                if (isTouch) {
-                                                    $(document).on("touchmove", preventScroll);
-                                                    $(document).swipe({swipeDown: function() {
-                                                            $.magnificPopup.close();
-                                                        }});
-                                                }
-                                            }, close: function() {
-                                                if (isTouch) {
-                                                    $(document).off("touchmove", preventScroll);
-                                                    $(document).swipe("destroy");
-                                                }
-                                            }}});
-                                })
-                            }
-                            if (g) {
-                                this.$element.each(function() {
-                                    var $gallery = $(this);
-                                    $gallery.find('[data-lightbox]').each(function() {
-                                        var $item = $(this);
-                                        $item.addClass("mfp-" + $item.attr("data-lightbox"));
-                                    }).end().magnificPopup({delegate: '.owl-item:not(.cloned) .owl-item [data-lightbox]', type: "image", gallery: {enabled: true}, callbacks: {open: function() {
-                                                if (isTouch) {
-                                                    $(document).on("touchmove", preventScroll);
-                                                    $(document).swipe({swipeDown: function() {
-                                                            $.magnificPopup.close();
-                                                        }});
-                                                }
-                                            }, close: function() {
-                                                if (isTouch) {
-                                                    $(document).off("touchmove", preventScroll);
-                                                    $(document).swipe("destroy");
-                                                }
-                                            }}});
-                                })
-                            }
-                        }
-                    }});
-            });
-        });
-    }
-})($);
-;
+//(function($) {
+//    var o = $(".progress-bar-custom");
+//    if (o.length) {
+//        include('/js/app/vendor/progressbar.min.js');
+//        function isScrolledIntoView(elem) {
+//            var $window = $(window);
+//            return elem.offset().top + elem.outerHeight() >= $window.scrollTop() && elem.offset().top <= $window.scrollTop() + $window.height();
+//        }
+//        $(document).ready(function() {
+//            o.each(function() {
+//                var bar, type;
+//                if (this.className.indexOf("progress-bar-horizontal") > -1) {
+//                    type = 'Line';
+//                }
+//                if (this.className.indexOf("progress-bar-radial") > -1) {
+//                    type = 'Circle';
+//                }
+//                if (this.getAttribute("data-stroke") && this.getAttribute("data-value") && type) {
+//                    bar = new ProgressBar[type](this, {strokeWidth: Math.round(parseFloat(this.getAttribute("data-stroke")) / this.offsetWidth * 100)
+//                        , trailWidth: this.getAttribute("data-trail") ? Math.round(parseFloat(this.getAttribute("data-trail")) / this.offsetWidth * 100) : 0
+//                        , text: {value: this.getAttribute("data-counter") === "true" ? '0' : null, className: 'progress-bar__body', style: null}});
+//                    bar.svg.setAttribute('preserveAspectRatio', "none meet");
+//                    if (type === 'Line') {
+//                        bar.svg.setAttributeNS(null, "height", this.getAttribute("data-stroke"));
+//                    }
+//                    bar.path.removeAttribute("stroke");
+//                    bar.path.className.baseVal = "progress-bar__stroke";
+//                    if (bar.trail) {
+//                        bar.trail.removeAttribute("stroke");
+//                        bar.trail.className.baseVal = "progress-bar__trail";
+//                    }
+//                    if (this.getAttribute("data-easing") && !isIE()) {
+//                        $(document).on("scroll", $.proxy(function() {
+//                            if (isScrolledIntoView($(this)) && this.className.indexOf("progress-bar--animated") === -1) {
+//                                console.log(1);
+//                                this.className += " progress-bar--animated";
+//                                bar.animate(parseInt(this.getAttribute("data-value")) / 100.0, {
+//                                    easing: this.getAttribute("data-easing"), duration: this.getAttribute("data-duration") ? parseInt(this.getAttribute("data-duration")) : 800, step: function(state, b) {
+//                                        if (b._container.className.indexOf("progress-bar-horizontal") > -1 || b._container.className.indexOf("progress-bar-vertical") > -1) {
+//                                            b.text.style.width = Math.abs(b.value() * 100).toFixed(0) + "%"
+//                                        }
+//                                        b.setText(Math.abs(b.value() * 100).toFixed(0));
+//                                    }});
+//                            }
+//                        }, this)).trigger("scroll");
+//                    } else {
+//                        bar.set(parseInt(this.getAttribute("data-value")) / 100.0);
+//                        bar.setText(this.getAttribute("data-value"));
+//                        if (type === 'Line') {
+//                            bar.text.style.width = parseInt(this.getAttribute("data-value")) + "%";
+//                        }
+//                    }
+//                } else {
+//                    console.error(this.className + ": progress bar type is not defined");
+//                }
+//            });
+//        });
+//    }
+//})($);
+//;
+//(function($) {
+//    var o = $('.counter');
+//    if (o.length > 0) {
+//        include('/js/app/vendor/jquery.countTo.js');
+//        $(document).ready(function() {
+//            $(document).on("scroll", $.proxy(function() {
+//                o.not('.animated').each(function() {
+//                    var $this = $(this);
+//                    var position = $this.offset().top;
+//                    if (($(window).scrollTop() + $(window).height()) > position) {
+//                        $this.countTo();
+//                        $this.addClass('animated');
+//                    }
+//                });
+//            }, $(this))).trigger("scroll");
+//        });
+//    }
+//})($);
+//;
+//(function($) {
+//    var o = $('.progress-bar');
+//    if (o.length > 0) {
+//        include('/js/app/vendor/jquery.counter.js');
+//        $(document).ready(function() {
+//            $(document).on("scroll", $.proxy(function() {
+//                o.not('.animated').each(function() {
+//                    var position = $(this).offset().top;
+//                    if (($(window).scrollTop() + $(window).height()) > position) {
+//                        var $this = $(this);
+//                        var start = $this.attr("aria-valuemin");
+//                        var end = $this.attr("aria-valuenow");
+//                        $this.css({width: end + '%'});
+//                        $this.parent().find('span').counter({start: start, end: end, time: 0.4, step: 20});
+//                        $this.addClass('animated');
+//                    }
+//                });
+//            }, $(this))).trigger("scroll");
+//        });
+//    }
+//})($);
+//;
+//(function($) {
+//    var o = $('.rd-parallax');
+//    if (o.length) {
+//        include('/js/app/vendor/jquery.rd-parallax.min.js');
+//        $(document).ready(function() {
+//            o.each(function() {
+//                if (!$(this).parents(".swiper-slider").length) {
+//                    $.RDParallax();
+//                }
+//            });
+//        });
+//    }
+//})(jQuery);
+//
+//
+//(function($) {
+//    var o = $('.owl-carousel');
+//    if (o.length) {
+//        include('/js/app/vendor/jquery.owl-carousel.js');
+//        var isTouch = "ontouchstart"in window;
+//        function preventScroll(e) {
+//            e.preventDefault();
+//        }
+//        $(document).ready(function() {
+//            o.each(function() {
+//                var c = $(this), responsive = {};
+//                var aliaces = ["-", "-xs-", "-sm-", "-md-", "-lg-"], values = [0, 480, 768, 992, 1200], i, j;
+//                for (i = 0; i < values.length; i++) {
+//                    responsive[values[i]] = {};
+//                    for (j = i; j >= -1; j--) {
+//                        if (!responsive[values[i]]["items"] && c.attr("data" + aliaces[j] + "items")) {
+//                            responsive[values[i]]["items"] = j < 0 ? 1 : parseInt(c.attr("data" + aliaces[j] + "items"));
+//                        }
+//                        if (!responsive[values[i]]["stagePadding"] && responsive[values[i]]["stagePadding"] !== 0 && c.attr("data" + aliaces[j] + "stage-padding")) {
+//                            responsive[values[i]]["stagePadding"] = j < 0 ? 0 : parseInt(c.attr("data" + aliaces[j] + "stage-padding"));
+//                        }
+//                        if (!responsive[values[i]]["margin"] && responsive[values[i]]["margin"] !== 0 && c.attr("data" + aliaces[j] + "margin")) {
+//                            responsive[values[i]]["margin"] = j < 0 ? 30 : parseInt(c.attr("data" + aliaces[j] + "margin"));
+//                        }
+//                    }
+//                }
+//                c.owlCarousel({autoplay: c.attr("data-autoplay") === "true", loop: c.attr("data-loop") !== "false", item: 1, mouseDrag: c.attr("data-mouse-drag") !== "false", nav: c.attr("data-nav") === "true", dots: c.attr("data-dots") === "true", dotsEach: c.attr("data-dots-each") ? parseInt(c.attr("data-dots-each")) : false, responsive: responsive, navText: [], onInitialized: function() {
+//                        if ($.fn.magnificPopup) {
+//                            var o = this.$element.attr('data-lightbox') !== "gallery", g = this.$element.attr('data-lightbox') === "gallery";
+//                            if (o) {
+//                                this.$element.each(function() {
+//                                    var $this = $(this);
+//                                    $this.magnificPopup({type: $this.attr("data-lightbox"), callbacks: {open: function() {
+//                                                if (isTouch) {
+//                                                    $(document).on("touchmove", preventScroll);
+//                                                    $(document).swipe({swipeDown: function() {
+//                                                            $.magnificPopup.close();
+//                                                        }});
+//                                                }
+//                                            }, close: function() {
+//                                                if (isTouch) {
+//                                                    $(document).off("touchmove", preventScroll);
+//                                                    $(document).swipe("destroy");
+//                                                }
+//                                            }}});
+//                                })
+//                            }
+//                            if (g) {
+//                                this.$element.each(function() {
+//                                    var $gallery = $(this);
+//                                    $gallery.find('[data-lightbox]').each(function() {
+//                                        var $item = $(this);
+//                                        $item.addClass("mfp-" + $item.attr("data-lightbox"));
+//                                    }).end().magnificPopup({delegate: '.owl-item:not(.cloned) .owl-item [data-lightbox]', type: "image", gallery: {enabled: true}, callbacks: {open: function() {
+//                                                if (isTouch) {
+//                                                    $(document).on("touchmove", preventScroll);
+//                                                    $(document).swipe({swipeDown: function() {
+//                                                            $.magnificPopup.close();
+//                                                        }});
+//                                                }
+//                                            }, close: function() {
+//                                                if (isTouch) {
+//                                                    $(document).off("touchmove", preventScroll);
+//                                                    $(document).swipe("destroy");
+//                                                }
+//                                            }}});
+//                                })
+//                            }
+//                        }
+//                    }});
+//            });
+//        });
+//    }
+//})($);
+//;
 (function($) {
     var o = $('#svg-phone_1'), msie = !!navigator.userAgent.match(/Trident\/7\./);
     if ((o.length) && (!msie)) {
@@ -449,16 +447,16 @@ function isIE() {
     }
 })($);
 ;
-(function($) {
-    var o = $('.questions');
-    if (o.length) {
-        include('/js/app/vendor/scrollTo.js');
-        $(document).ready(function() {
-            o.scrollTo({});
-        });
-    }
-})($);
-;
+//(function($) {
+//    var o = $('.questions');
+//    if (o.length) {
+//        include('/js/app/vendor/scrollTo.js');
+//        $(document).ready(function() {
+//            o.scrollTo({});
+//        });
+//    }
+//})($);
+//;
 //(function($) {
 //    var o = $('.rd-navbar-search');
 //    if (o.length) {
@@ -468,109 +466,109 @@ function isIE() {
 //        });
 //    }
 //})($);
-;
-(function($) {
-    var o = $('#DateCountdown');
-    if (o.length) {
-        include('/js/app/vendor/TimeCircles.js');
-        $(document).ready(function() {
-            var time = {"Days": {"text": "Days", "color": "#95cf24", "show": true}, "Hours": {"text": "Hours", "color": "#95cf24", "show": true}, "Minutes": {"text": "Minutes", "color": "#95cf24", "show": true}, "Seconds": {"text": "Seconds", "color": "#95cf24", "show": true}};
-            o.TimeCircles({"animation": "smooth", "bg_width": 0.4, "fg_width": 0.02666666666666667, "circle_bg_color": "rgba(0,0,0,.2)", "time": time});
-            $(window).on('load resize orientationchange', function() {
-                if ($(window).width() < 479) {
-                    o.TimeCircles({time: {Minutes: {show: true}, Seconds: {show: false}}}).rebuild();
-                } else if ($(window).width() < 767) {
-                    o.TimeCircles({time: {Seconds: {show: false}}}).rebuild();
-                } else {
-                    o.TimeCircles({time: time}).rebuild();
-                }
-            });
-        });
-    }
-})(jQuery);
-;
-(function($) {
-    var o = $('[data-lightbox]').not('[data-lightbox="gallery"] [data-lightbox]'), g = $('[data-lightbox^="gallery"]');
-    if (o.length > 0 || g.length > 0) {
-        include('/js/app/vendor/jquery.magnific-popup.min.js');
-        $(document).ready(function() {
-            if (o.length) {
-                o.each(function() {
-                    var $this = $(this);
-                    $this.magnificPopup({type: $this.attr("data-lightbox")});
-                })
-            }
-            if (g.length) {
-                g.each(function() {
-                    var $gallery = $(this);
-                    $gallery.find('[data-lightbox]').each(function() {
-                        var $item = $(this);
-                        $item.addClass("mfp-" + $item.attr("data-lightbox"));
-                    }).end().magnificPopup({delegate: '[data-lightbox]', type: "image", removalDelay: 300, mainClass: 'mfp-fade', gallery: {enabled: true}});
-                })
-            }
-        });
-    }
-})(jQuery);
-;
-(function($) {
-    var o = $(".isotope");
-    if (o.length) {
-        include('/js/app/vendor/isotope.pkgd.min.js');
-        $(document).ready(function() {
-            o.each(function() {
-                var _this = this, iso = new Isotope(_this, {itemSelector: '[class*="col-"], .isotope-item', layoutMode: _this.getAttribute('data-layout') ? _this.getAttribute('data-layout') : 'masonry'});
-                $(window).on("resize", function() {
-                    iso.layout();
-                });
-                $(window).load(function() {
-                    iso.layout();
-                    setTimeout(function() {
-                        _this.className += " isotope--loaded";
-                        iso.layout();
-                    }, 600);
-                });
-            });
-            $(".isotope-filters-trigger").on("click", function() {
-                $(this).parents(".isotope-filters").toggleClass("active");
-            });
-            $('.isotope').magnificPopup({delegate: ' > :visible .mfp-image', type: "image", gallery: {enabled: true}, });
-            $("[data-isotope-filter]").on("click", function() {
-                $('[data-isotope-filter][data-isotope-group="' + this.getAttribute("data-isotope-group") + '"]').removeClass("active");
-                $(this).addClass("active");
-                $(this).parents(".isotope-filters").removeClass("active");
-                $('.isotope[data-isotope-group="' + this.getAttribute("data-isotope-group") + '"]').isotope({filter: this.getAttribute("data-isotope-filter") == '*' ? '*' : '[data-filter="' + this.getAttribute("data-isotope-filter") + '"]'});
-            })
-        });
-    }
-})(jQuery);
-;
-(function($) {
-    var o = $('.timeline');
-    if (o.length) {
-        $(document).ready(function() {
-            o.find(".timeline-btn").on("click", function() {
-                $(this).toggleClass("active");
-                if (o.find(".timeline-hidden").is(':hidden')) {
-                    o.find(".timeline-hidden").slideDown(800);
-                } else {
-                    o.find(".timeline-hidden").slideUp(800);
-                }
-            });
-        });
-    }
-})($);
-;
-(function($) {
-    var o = $('.form-label');
-    if (o.length) {
-        include('/js/app/vendor/mailform/jquery.rd-input-label.js');
-        $(document).ready(function() {
-            o.RDInputLabel();
-        });
-    }
-})(jQuery);
-;
+//;
+//(function($) {
+//    var o = $('#DateCountdown');
+//    if (o.length) {
+//        include('/js/app/vendor/TimeCircles.js');
+//        $(document).ready(function() {
+//            var time = {"Days": {"text": "Days", "color": "#95cf24", "show": true}, "Hours": {"text": "Hours", "color": "#95cf24", "show": true}, "Minutes": {"text": "Minutes", "color": "#95cf24", "show": true}, "Seconds": {"text": "Seconds", "color": "#95cf24", "show": true}};
+//            o.TimeCircles({"animation": "smooth", "bg_width": 0.4, "fg_width": 0.02666666666666667, "circle_bg_color": "rgba(0,0,0,.2)", "time": time});
+//            $(window).on('load resize orientationchange', function() {
+//                if ($(window).width() < 479) {
+//                    o.TimeCircles({time: {Minutes: {show: true}, Seconds: {show: false}}}).rebuild();
+//                } else if ($(window).width() < 767) {
+//                    o.TimeCircles({time: {Seconds: {show: false}}}).rebuild();
+//                } else {
+//                    o.TimeCircles({time: time}).rebuild();
+//                }
+//            });
+//        });
+//    }
+//})(jQuery);
+//;
+//(function($) {
+//    var o = $('[data-lightbox]').not('[data-lightbox="gallery"] [data-lightbox]'), g = $('[data-lightbox^="gallery"]');
+//    if (o.length > 0 || g.length > 0) {
+//        include('/js/app/vendor/jquery.magnific-popup.min.js');
+//        $(document).ready(function() {
+//            if (o.length) {
+//                o.each(function() {
+//                    var $this = $(this);
+//                    $this.magnificPopup({type: $this.attr("data-lightbox")});
+//                })
+//            }
+//            if (g.length) {
+//                g.each(function() {
+//                    var $gallery = $(this);
+//                    $gallery.find('[data-lightbox]').each(function() {
+//                        var $item = $(this);
+//                        $item.addClass("mfp-" + $item.attr("data-lightbox"));
+//                    }).end().magnificPopup({delegate: '[data-lightbox]', type: "image", removalDelay: 300, mainClass: 'mfp-fade', gallery: {enabled: true}});
+//                })
+//            }
+//        });
+//    }
+//})(jQuery);
+//;
+//(function($) {
+//    var o = $(".isotope");
+//    if (o.length) {
+//        include('/js/app/vendor/isotope.pkgd.min.js');
+//        $(document).ready(function() {
+//            o.each(function() {
+//                var _this = this, iso = new Isotope(_this, {itemSelector: '[class*="col-"], .isotope-item', layoutMode: _this.getAttribute('data-layout') ? _this.getAttribute('data-layout') : 'masonry'});
+//                $(window).on("resize", function() {
+//                    iso.layout();
+//                });
+//                $(window).load(function() {
+//                    iso.layout();
+//                    setTimeout(function() {
+//                        _this.className += " isotope--loaded";
+//                        iso.layout();
+//                    }, 600);
+//                });
+//            });
+//            $(".isotope-filters-trigger").on("click", function() {
+//                $(this).parents(".isotope-filters").toggleClass("active");
+//            });
+//            $('.isotope').magnificPopup({delegate: ' > :visible .mfp-image', type: "image", gallery: {enabled: true}, });
+//            $("[data-isotope-filter]").on("click", function() {
+//                $('[data-isotope-filter][data-isotope-group="' + this.getAttribute("data-isotope-group") + '"]').removeClass("active");
+//                $(this).addClass("active");
+//                $(this).parents(".isotope-filters").removeClass("active");
+//                $('.isotope[data-isotope-group="' + this.getAttribute("data-isotope-group") + '"]').isotope({filter: this.getAttribute("data-isotope-filter") == '*' ? '*' : '[data-filter="' + this.getAttribute("data-isotope-filter") + '"]'});
+//            })
+//        });
+//    }
+//})(jQuery);
+//;
+//(function($) {
+//    var o = $('.timeline');
+//    if (o.length) {
+//        $(document).ready(function() {
+//            o.find(".timeline-btn").on("click", function() {
+//                $(this).toggleClass("active");
+//                if (o.find(".timeline-hidden").is(':hidden')) {
+//                    o.find(".timeline-hidden").slideDown(800);
+//                } else {
+//                    o.find(".timeline-hidden").slideUp(800);
+//                }
+//            });
+//        });
+//    }
+//})($);
+//;
+//(function($) {
+//    var o = $('.form-label');
+//    if (o.length) {
+//        include('/js/app/vendor/mailform/jquery.rd-input-label.js');
+//        $(document).ready(function() {
+//            o.RDInputLabel();
+//        });
+//    }
+//})(jQuery);
+//;
 //(function($) {
 //    var o = $('.rd-mailform');
 //    if (o.length > 0) {

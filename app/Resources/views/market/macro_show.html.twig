@@ -28,15 +28,18 @@
                         </span>
                         <br>
                         <span class="text-uppercase txt-gray-light small">Prix </span><span class="price sale">{{ entity.prixUnit }} </span> <span class="measure">FCFA / {{ entity.measure }}</span>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            
                         <address>
                             <dl class="info-list offset-5">
                                 <dt>Par</dt>
                                 <dd> {{ entity.user.firstName }} &nbsp; {{ entity.user.lastName|first|upper }}.
                                     <a role="button" id="" class="btn btn-default round-xl btn-sm" href="#">Contatez-le</a>
                                 </dd>
-
                             </dl>
                         </address>
+                        {% endif  %}
+                        <br>
                         <button  type="submit" id="order" class="btn btn-primary round-xl btn-sm  offset-6">
                             {{ (type == 'vente') ? 'Commander' : 'Souscrire' }}
                         </button>
@@ -166,7 +169,7 @@
                 <div class="modal-body">
                     <address>
                         <dl>
-                            <dt><i class="fa fa-user" aria-hidden="true"></i> {{ entity.user.firstName }} &nbsp; {{ entity.user.lastName }}. </dt>
+                            <dt><i class="fa fa-user" aria-hidden="true"></i> {{ entity.user.firstName }} &nbsp; {{ entity.user.lastName|first|upper }}. </dt>
                         </dl>
                         <dl>
                             <dt>
@@ -183,7 +186,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default round-xl btn-sm" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Fermer</button>
-                    <button type="button" class="btn btn-primary round-xl btn-sm"><i class="fa fa-envelope" aria-hidden="true"></i> Contater</button>
+                    <button type="button" class="btn btn-primary round-xl btn-sm" data-dismiss="modal"><i class="fa fa-envelope" aria-hidden="true"></i> Contater</button>
                 </div>
             </div>
         </div>

@@ -54,15 +54,12 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             //var_dump($request->getSession()->get('_security.main.target_path'));
         }
 
-        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
-            $response = new RedirectResponse($this->router->generate('easyadmin'));
+        if ($route['params'] != null) {
+            $response = new RedirectResponse($this->router->generate($route['route'], $route['params']));
         } else {
-            if ($route['params'] != null) {
-                $response = new RedirectResponse($this->router->generate($route['route'], $route['params']));
-            } else {
-                $response = new RedirectResponse($this->router->generate($route['route']));
-            }
+            $response = new RedirectResponse($this->router->generate($route['route']));
         }
+
         //$session->getFlashBag()->add('success', 'Connexion réussi !');
         return $response;
     }

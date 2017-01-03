@@ -84,9 +84,8 @@
             </footer>
         {% endblock %}
     </div>
-    <a class="ui-to-top fl-bigmug-line-up107" id="ui-to-top" href="#"></a>
     {% block javascripts %}
-        {% if app.request.host matches '/benagro/' %}
+        {% if app.request.host matches '/beagrio/' %}
             <script>
                 (function (i, s, o, g, r, a, m) {
                     i['GoogleAnalyticsObject'] = r;
@@ -105,15 +104,15 @@
 
             </script>
         {% endif %}
-
-        <script src="{{ asset('assets/js/benagro.min.js') }}"></script>
-        <script src="{{ asset('/js/app/vendor/device.min.js') }}"></script>
         <!-- Core Scripts -->
         <script src="{{ asset('/js/app/vendor/core.min.js') }}"></script>
-        <script src="{{ asset('assets/js/requirejs.js') }}"></script>
+        <script src="{{ asset('/js/app/vendor/device.min.js') }}"></script>
+        <script src="{{ asset('/js/script.js') }}"></script>
+        <script src="{{ asset('/assets/js/benagro.min.js') }}"></script>
+        <script src="{{ asset('/assets/js/requirejs.js') }}"></script>
         <script src="{{ asset('js/app/main.js') }}"></script>
         {# inclusion de deux scripts pour résoudre le problème d'erreur 404 de fosjsrouting qui ne marchait pas#}
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ asset('/bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     {% endblock %}
 </body>
